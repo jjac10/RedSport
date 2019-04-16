@@ -8,38 +8,38 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'tab1',
+        path: 'inicio',
         children: [
           {
             path: '',
-            loadChildren: '../tab1/tab1.module#Tab1PageModule'
+            loadChildren: '../inicio/inicio.module#InicioPageModule'
           }
         ]
       },
       {
-        path: 'tab2',
+        path: 'notificaciones',
         children: [
           {
             path: '',
-            loadChildren: '../tab2/tab2.module#Tab2PageModule'
+            loadChildren: '../notificaciones/notificaciones.module#NotificacionesPageModule'
           }
         ]
       },
       {
-        path: 'tab3',
+        path: 'eventos',
         children: [
           {
             path: '',
-            loadChildren: '../tab3/tab3.module#Tab3PageModule'
+            loadChildren: '../eventos/eventos.module#EventosPageModule'
           }
         ]
       },
       {
-        path: 'home',
+        path: 'chat',
         children: [
           {
             path: '',
-            loadChildren: '../home/home.module#HomePageModule'
+            loadChildren: '../chat/chat.module#ChatPageModule'
           }
         ]
       },
@@ -52,7 +52,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/tabs/home',
+    redirectTo: '/tabs/inicio',
     pathMatch: 'full'
   }
 ];
