@@ -1,9 +1,19 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>notificaciones</ion-title>
+    <ion-title>Notificaciones</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content padding>
+  <ion-item>
+    <ion-label position="floating">Texto</ion-label>
+    <ion-input type="text" [(ngModel)]="inputText"></ion-input>
+  </ion-item>
+  <br>
+    <ion-button expand="block" (click)="addItem({name:inputText})">Add</ion-button>
+  <ion-list>
+      <ion-item *ngFor="let item of items">
+        {{item.name}}
+      </ion-item>
+  </ion-list>
 </ion-content>
