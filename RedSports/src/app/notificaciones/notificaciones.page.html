@@ -1,19 +1,40 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Notificaciones</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-title>Notificaciones</ion-title>
+    </ion-toolbar>
 </ion-header>
 
+<ion-card style="height:auto">
+    <ion-item-divider style="padding-left:0px">
+        <ion-searchbar style="padding-left:8px"></ion-searchbar>
+    </ion-item-divider>
+    <ion-item-divider>
+        <ion-select style="margin-left: auto;margin-right: auto;width:35%;padding-left:0px" placeholder="Elige uno">
+            <ion-select-option selected value="f">Mis eventos</ion-select-option>
+            <ion-select-option value="m">Apuntado</ion-select-option>
+        </ion-select>
+
+    </ion-item-divider>
+</ion-card>
+
 <ion-content padding>
-  <ion-item>
-    <ion-label position="floating">Texto</ion-label>
-    <ion-input type="text" [(ngModel)]="inputText"></ion-input>
-  </ion-item>
-  <br>
-    <ion-button expand="block" (click)="addItem({name:inputText})">Add</ion-button>
-  <ion-list>
-      <ion-item *ngFor="let item of items">
-        {{item.name}}
-      </ion-item>
-  </ion-list>
+        
+    <div *ngFor="let item of items">
+        <ion-card style="margin:0px">
+            <ion-item style="--inner-border-width:0">
+                <img src="assets/pelota.png" style="width:128px;height: 128px" padding/>
+                <ion-item-group >
+                    <ion-item-divider style="border-bottom:none">
+                        <ion-label><strong>{{item.titulo}}</strong></ion-label>
+                    </ion-item-divider>
+                    <ion-item-divider style="border-bottom:none">
+                        <ion-label>{{item.descripcion}}</ion-label>
+                    </ion-item-divider>
+                </ion-item-group>
+            </ion-item>
+            <ion-label>{{item.ubicacion}}</ion-label>
+        </ion-card>
+        <br>
+    </div>
+    
 </ion-content>
