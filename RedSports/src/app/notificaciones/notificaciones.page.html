@@ -9,32 +9,32 @@
         <ion-searchbar style="padding-left:8px"></ion-searchbar>
     </ion-item-divider>
     <ion-item-divider>
-        <ion-select style="margin-left: auto;margin-right: auto;width:35%;padding-left:0px" placeholder="Elige uno">
-            <ion-select-option selected value="f">Mis eventos</ion-select-option>
-            <ion-select-option value="m">Apuntado</ion-select-option>
+        <ion-select (ionChange)="cambiarTipo($event)" style="margin-left: auto;margin-right: auto;width:35%;padding-left:0px" placeholder="Elige uno">
+            <ion-select-option selected value="participa">Apuntado</ion-select-option>
+            <ion-select-option value="creados">Creados por mi</ion-select-option>
         </ion-select>
 
     </ion-item-divider>
 </ion-card>
 
 <ion-content padding>
-        
-    <div *ngFor="let item of items">
-        <ion-card style="margin:0px">
-            <ion-item style="--inner-border-width:0">
-                <img src="assets/pelota.png" style="width:128px;height: 128px" padding/>
-                <ion-item-group >
-                    <ion-item-divider style="border-bottom:none">
-                        <ion-label><strong>{{item.titulo}}</strong></ion-label>
-                    </ion-item-divider>
-                    <ion-item-divider style="border-bottom:none">
-                        <ion-label>{{item.descripcion}}</ion-label>
-                    </ion-item-divider>
-                </ion-item-group>
-            </ion-item>
-            <ion-label>{{item.ubicacion}}</ion-label>
-        </ion-card>
-        <br>
-    </div>
-    
+    <div id="lista">
+        <div *ngFor="let item of items">
+            <ion-card style="margin:0px">
+                <ion-item style="--inner-border-width:0">
+                    <img src="assets/pelota.png" style="width:128px;height: 128px" padding/>
+                    <ion-item-group >
+                        <ion-item-divider style="border-bottom:none">
+                            <ion-label><strong>{{item.titulo}}</strong></ion-label>
+                        </ion-item-divider>
+                        <ion-item-divider style="border-bottom:none">
+                            <ion-label>{{item.descripcion}}</ion-label>
+                        </ion-item-divider>
+                    </ion-item-group>
+                </ion-item>
+                <ion-label>{{item.ubicacion}}</ion-label>
+            </ion-card>
+            <br>
+        </div>
+    </div>   
 </ion-content>

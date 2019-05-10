@@ -11,27 +11,23 @@ import { ViewEncapsulation } from '@angular/compiler/src/core';
     styleUrls: ['./notificaciones.page.scss'],
 })
 export class NotificacionesPage implements OnInit {
-
+    
     items = []
     ref
-    inputText: string = ''
-
-    snapshotToArray(snapshot) {
-        let returnArray = []
-
-        snapshot.forEach(element => {
-            let item = element.toJSON()
-            returnArray.push(element.key)
-        });
-        return returnArray
-    }
+    modo: string = 'participa'
 
     constructor(public navCtrl: NavController) {
+        this.obtenerDatos()
+    }
+
+    ngOnInit() { }
+
+    obtenerDatos(){
         console.log('loaded. ahora inicio sesion')
         firebase.auth().signInWithEmailAndPassword('wrguide@gmail.com', 'prueba')
             .then(res => {
                 console.log('logged in')
-                this.ref = firebase.database().ref('users/' + res.user.uid + '/eventos/participa/')
+                this.ref = firebase.database().ref('users/' + res.user.uid + '/eventos/'+this.modo+'/')
                 this.ref.on('value', eventosUsuarios => {
                     eventosUsuarios.forEach(eventoUsuario => {
                         firebase.database().ref('eventos/' + eventoUsuario.key + '/').on('value', infoEvento => {
@@ -47,14 +43,12 @@ export class NotificacionesPage implements OnInit {
             })
         console.log('pepe')
     }
-
-    addItem(item) {
-        if (item != undefined && item != null) {
-            let newItem = this.ref.push()
-            newItem.set(item)
-            this.inputText = ''
+    cambiarTipo(event) {
+        console.log('a ' +this.modo)
+        console.log('b ' +event.detail.value)
+        if(this.modo != event.detail.value){
+            this.modo = event.detail.value
+            this.obtenerDatos()
         }
     }
-
-    ngOnInit() { }
 }
