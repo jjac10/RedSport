@@ -23,6 +23,7 @@ export class NotificacionesPage implements OnInit {
     ngOnInit() { }
 
     obtenerDatos(){
+        this.items = []
         console.log('loaded. ahora inicio sesion')
         firebase.auth().signInWithEmailAndPassword('wrguide@gmail.com', 'prueba')
             .then(res => {
@@ -47,6 +48,7 @@ export class NotificacionesPage implements OnInit {
         console.log('a ' +this.modo)
         console.log('b ' +event.detail.value)
         if(this.modo != event.detail.value){
+            
             this.modo = event.detail.value
             this.obtenerDatos()
         }

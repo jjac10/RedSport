@@ -18,9 +18,8 @@
 </ion-card>
 
 <ion-content padding>
-    <div id="lista">
-        <div *ngFor="let item of items">
-            <ion-card style="margin:0px">
+        <div id="item" *ngFor="let item of items">
+            <ion-card name="element" style="margin:0px;margin-bottom: 10px">
                 <ion-item style="--inner-border-width:0">
                     <img src="assets/pelota.png" style="width:128px;height: 128px" padding/>
                     <ion-item-group >
@@ -34,7 +33,5 @@
                 </ion-item>
                 <ion-label>{{item.ubicacion}}</ion-label>
             </ion-card>
-            <br>
         </div>
-    </div>   
 </ion-content>
