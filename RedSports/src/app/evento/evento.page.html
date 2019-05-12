@@ -5,14 +5,20 @@
 </ion-header>
 
 <ion-content>
-    <ion-item>
-      <img src="assets/pelota.png" style="width:50px;height: 50px; margin: 5px"/>
-      <ion-label>
-        <h2> {{ titulo }} </h2>
-      </ion-label>
-    </ion-item>
-  <h4></h4>
-  <h4></h4>
+  <ion-item>
+    <img src="assets/pelota.png" style="width:60px; height: 60px; margin: 15px; margin-left: 5px"/>
+    <ion-label>
+      <h1> {{ evento.titulo }} </h1>
+      <p> {{ evento.ubicacion }} </p>
+    </ion-label>
+  </ion-item>
+  <ion-grid>
+    <ion-row>
+      <ion-col style="background:#3498b9; border:1px solid black; text-align:center; margin:5px;color: white;">
+        <p> {{ evento.descripcion }} </p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
   <ion-button size="medium" expand='full' (click)="apuntarseEnEvento()" [color]="buttonColor">
       {{ participar }}
   </ion-button>

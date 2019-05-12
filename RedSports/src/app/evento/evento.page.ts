@@ -48,10 +48,8 @@ export class EventoPage implements OnInit {
       this.participar = "Desapuntarse"
       this.apuntarse()
     } else {
-      this.ref = firebase.database().ref('users/'+this.user+'/eventos/participa/'+this.idEvento)
-      this.ref.remove()
-      this.ref = firebase.database().ref('eventos/'+this.idEvento+'/participantes/'+this.user)
-      this.ref.remove()
+      firebase.database().ref('users/'+this.user+'/eventos/participa/'+this.idEvento).remove()
+      firebase.database().ref('eventos/'+this.idEvento+'/participantes/'+this.user).remove()
       this.participar = "Apuntarse"
       this.apuntarse()
     }
