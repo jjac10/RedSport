@@ -1,5 +1,7 @@
 {
   "name": "RedSports",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

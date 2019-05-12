@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "908826579268",
+    "firebase_url": "https://redsports-2f263.firebaseio.com",
+    "project_id": "redsports-2f263",
+    "storage_bucket": "redsports-2f263.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:908826579268:android:c9e35955399574b3",
+        "android_client_info": {
+          "package_name": "com.beta_redsports.redsports1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "908826579268-tlm8gbjpavqsestb4b4j2fgo7b6idrb6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASEnzHzL-Ebh59jNxb0iZnqPLgrCNAN8c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "908826579268-tlm8gbjpavqsestb4b4j2fgo7b6idrb6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
