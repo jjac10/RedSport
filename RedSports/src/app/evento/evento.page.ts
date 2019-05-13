@@ -8,15 +8,14 @@ import * as firebase from "firebase";
 })
 export class EventoPage implements OnInit {
   ref
-  public titulo: string
   public buttonColor: string = ""
   public participar: string = "Participar"
-
-  public user: string = "gb8KcNeo7dZXUyhWmGhmHAYjosu2"
-  public idEvento: string = '1023912309'
   public subscritoAEvento: boolean
   evento: any = {}
 
+
+  public user: string = "gb8KcNeo7dZXUyhWmGhmHAYjosu2"
+  public idEvento: string = '1023912309'
   constructor() { 
     this.verEvento()
     this.comprobarEventoSubscrito()
@@ -79,4 +78,15 @@ export class EventoPage implements OnInit {
       this.participar = "Participar"
     }
   }
+
+  borrarEvento() {
+    this.ref = firebase.database().ref('users/' + this.user + '/eventos/creados/'+this.idEvento)
+    this.ref.on('value', evento => { 
+      if(evento.exists()) {
+        firebase.database().ref('eventos/'+this.idEvento).remove()
+        this.ref.remove()
+      }
+    })
+  }
+  
 }

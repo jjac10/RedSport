@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title>evento</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -19,8 +19,12 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <ion-button size="medium" expand='full' (click)="apuntarseEnEvento()" [color]="buttonColor">
+  <ion-button size="medium" expand='full' (click)="apuntarseEnEvento()" [color]="buttonColor" style="margin:10px">
       {{ participar }}
   </ion-button>
-
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="borrarEvento()">
+      <ion-icon name="trash"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
