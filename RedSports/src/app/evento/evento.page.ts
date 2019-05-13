@@ -17,8 +17,8 @@ export class EventoPage implements OnInit {
   public user: string = "gb8KcNeo7dZXUyhWmGhmHAYjosu2"
   public idEvento: string = '1023912309'
   constructor() { 
-    this.verEvento()
-    this.comprobarEventoSubscrito()
+    //this.verEvento()
+    //this.comprobarEventoSubscrito()
     
   }
 
@@ -52,6 +52,7 @@ export class EventoPage implements OnInit {
       this.participar = "Apuntarse"
       this.apuntarse()
     }
+    console.log(this.buttonColor)
   }
 
   comprobarEventoSubscrito() {
@@ -70,6 +71,7 @@ export class EventoPage implements OnInit {
   }
 
   apuntarse() {
+    console.log(this.participar)
     if(this.participar == 'Desapuntarse') {
       this.buttonColor = "danger"
       this.participar = "Desapuntar"
@@ -77,6 +79,8 @@ export class EventoPage implements OnInit {
       this.buttonColor = ""
       this.participar = "Participar"
     }
+
+    console.log(this.buttonColor)
   }
 
   borrarEvento() {
