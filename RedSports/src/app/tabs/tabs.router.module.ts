@@ -56,7 +56,16 @@ const routes: Routes = [
         path: '',
         redirectTo: '/tabs/tab1',
         pathMatch: 'full'
-      }
+      },
+      {
+        path: 'evento',
+        children: [
+          {
+            path: '',
+            loadChildren: '../evento/evento.module#EventoPageModule'
+          }
+        ]
+      },
     ]
   },
   {

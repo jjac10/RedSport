@@ -8,11 +8,11 @@ const routes: Routes = [
   { path: 'eventos', loadChildren: './eventos/eventos.module#EventosPageModule' },
   { path: 'chat', loadChildren: './chat/chat.module#ChatPageModule' },
   { path: 'perfil', loadChildren: './perfil/perfil.module#PerfilPageModule' },
-  { path: 'pruebas', loadChildren: './pruebas/pruebas.module#PruebasPageModule' },  { path: 'pruebas', loadChildren: './pruebas/pruebas.module#PruebasPageModule' },
-  { path: 'perfil', loadChildren: './perfil/perfil.module#PerfilPageModule' }
-
-
+  { path: 'pruebas', loadChildren: './pruebas/pruebas.module#PruebasPageModule' },
+  { path: 'perfil', loadChildren: './perfil/perfil.module#PerfilPageModule' },
+  { path: 'evento', loadChildren: './evento/evento.module#EventoPageModule' }
 ];
+
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })

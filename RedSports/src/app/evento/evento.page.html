@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>evento</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <img src="assets/pelota.png" style="width:60px; height: 60px; margin: 15px; margin-left: 5px"/>
+    <ion-label>
+      <h1> {{ evento.titulo }} </h1>
+      <p> {{ evento.ubicacion }} </p>
+    </ion-label>
+  </ion-item>
+  <ion-grid>
+    <ion-row>
+      <ion-col style="background:#3498b9; border:1px solid black; text-align:center; margin:5px;color: white;">
+        <p> {{ evento.descripcion }} </p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-button size="medium" expand='full' (click)="apuntarseEnEvento()" [color]=buttonColor style="margin:10px">
+      {{ participar }}
+  </ion-button>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="borrarEvento()">
+      <ion-icon name="trash"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
