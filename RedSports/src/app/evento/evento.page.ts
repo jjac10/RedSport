@@ -8,17 +8,17 @@ import * as firebase from "firebase";
 })
 export class EventoPage implements OnInit {
   ref
-  public buttonColor: string = ""
+  public buttonColor: string = "secondary"
   public participar: string = "Participar"
-  public subscritoAEvento: boolean
+  public subscritoAEvento: boolean 
   evento: any = {}
 
 
   public user: string = "gb8KcNeo7dZXUyhWmGhmHAYjosu2"
   public idEvento: string = '1023912309'
   constructor() { 
-    //this.verEvento()
-    //this.comprobarEventoSubscrito()
+    this.verEvento()
+    this.comprobarEventoSubscrito()
     
   }
 
@@ -64,7 +64,7 @@ export class EventoPage implements OnInit {
         this.participar = "Desapuntarse"
       } else {
         this.subscritoAEvento = false
-        this.buttonColor = ""
+        this.buttonColor = "secondary"
         this.participar = "Apuntarse"
       }
     })
@@ -76,7 +76,7 @@ export class EventoPage implements OnInit {
       this.buttonColor = "danger"
       this.participar = "Desapuntar"
     } else {
-      this.buttonColor = ""
+      this.buttonColor = "secondary"
       this.participar = "Participar"
     }
 
