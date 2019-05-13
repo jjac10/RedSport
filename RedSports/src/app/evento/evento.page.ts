@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as firebase from "firebase";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-evento',
@@ -15,11 +16,10 @@ export class EventoPage implements OnInit {
 
 
   public user: string = "gb8KcNeo7dZXUyhWmGhmHAYjosu2"
-  public idEvento: string = '1023912309'
-  constructor() { 
+  public idEvento: string = '1023912310'
+  constructor(private router: Router) { 
     this.verEvento()
     this.comprobarEventoSubscrito()
-    
   }
 
   ngOnInit() {
@@ -34,25 +34,26 @@ export class EventoPage implements OnInit {
         this.evento.descripcion = evento.val().descripcion
         this.evento.ubicacion = evento.val().ubicacion
       }
-      
     });
   }
 
   apuntarseEnEvento() {
     if(this.subscritoAEvento == false) {
-      this.ref = firebase.database().ref('users/'+this.user+'/eventos/')
-      this.ref.child('participa').update({ [this.idEvento]: true })
       this.ref = firebase.database().ref('eventos/'+this.idEvento)
-      this.ref.child('participantes').update({ [this.user]: true })
-      this.participar = "Desapuntarse"
-      this.apuntarse()
-    } else {
+      this.ref.on('value', evento => { 
+        if(evento.exists()) {
+          this.ref.child('participantes').update({ [this.user]: true })
+          this.ref = firebase.database().ref('users/'+this.user+'/eventos/')
+          this.ref.child('participa').update({ [this.idEvento]: true })
+          this.participar = "Desapuntarse"
+          this.apuntarse()
+        }
+    })} else {
       firebase.database().ref('users/'+this.user+'/eventos/participa/'+this.idEvento).remove()
       firebase.database().ref('eventos/'+this.idEvento+'/participantes/'+this.user).remove()
       this.participar = "Apuntarse"
       this.apuntarse()
     }
-    console.log(this.buttonColor)
   }
 
   comprobarEventoSubscrito() {
@@ -79,8 +80,6 @@ export class EventoPage implements OnInit {
       this.buttonColor = "secondary"
       this.participar = "Participar"
     }
-
-    console.log(this.buttonColor)
   }
 
   borrarEvento() {
@@ -89,6 +88,7 @@ export class EventoPage implements OnInit {
       if(evento.exists()) {
         firebase.database().ref('eventos/'+this.idEvento).remove()
         this.ref.remove()
+        this.router.navigateByUrl('tabs/eventos')
       }
     })
   }
