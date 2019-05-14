@@ -1,0 +1,25 @@
+<ion-header>
+    <ion-toolbar color="primary">
+    <ion-title>Nuevo evento</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div>
+        <ion-item>
+          <ion-label position="fixed"><strong>Titulo</strong></ion-label>
+          <ion-input></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="fixed"><strong>Descripcion</strong></ion-label>
+          <ion-input></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="fixed"><strong>Ubicacion</strong></ion-label>
+          <ion-input></ion-input>
+        </ion-item>
+    
+        <ion-button expand="full" (click)="addItem()" [href]="'/eventos/'">¡Añadir Evento!</ion-button>
+    
+      </div>
+</ion-content>

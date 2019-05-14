@@ -10,7 +10,9 @@ const routes: Routes = [
   { path: 'perfil', loadChildren: './perfil/perfil.module#PerfilPageModule' },
   { path: 'pruebas', loadChildren: './pruebas/pruebas.module#PruebasPageModule' },
   { path: 'perfil', loadChildren: './perfil/perfil.module#PerfilPageModule' },
-  { path: 'evento', loadChildren: './evento/evento.module#EventoPageModule' }
+  { path: 'evento/:id', loadChildren: './evento/evento.module#EventoPageModule' },
+  { path: 'crear-evento', loadChildren: './crear-evento/crear-evento.module#CrearEventoPageModule' }
+
 ];
 
 @NgModule({

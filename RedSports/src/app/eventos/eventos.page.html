@@ -7,24 +7,6 @@
 
 
 <ion-content padding>
-  <div>
-    <ion-item>
-      <ion-label position="fixed"><strong>Titulo</strong></ion-label>
-      <ion-input></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="fixed"><strong>Descripcion</strong></ion-label>
-      <ion-input></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="fixed"><strong>Ubicacion</strong></ion-label>
-      <ion-input></ion-input>
-    </ion-item>
-
-    <ion-button expand="full" (click)="addItem()">¡Añadir Evento!</ion-button>
-
-  </div>
-
   <ion-card style="height:auto">
     <ion-item-divider style="padding-left:0px">
       <ion-searchbar (ioninput)="filterList($event)" style="padding-left:8px"></ion-searchbar>
@@ -47,4 +29,10 @@
           <ion-label>{{ item.ubicacion }}</ion-label>
       </ion-card>
   </div>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button [href]="'/crear-evento/'">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
 </ion-content>
