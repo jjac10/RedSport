@@ -1,9 +1,58 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>eventos</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-header >
+    <ion-toolbar color="primary">
+        <ion-title>Eventos</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content padding>
+    <ion-item>
+      <ion-label position="fixed"><strong>Titulo</strong></ion-label>
+      <ion-input [(ngModel)]="newItem.title"></ion-input>
+    </ion-item>
+      
+    <ion-item>
+      <ion-label position="fixed"><strong>Ubicación</strong></ion-label>
+      <ion-input [(ngModel)]="newItem.value"></ion-input>
+    </ion-item>
 
-<ion-content>
+    <ion-item>
+      <ion-label position="fixed"><strong>Descripción</strong></ion-label>
+      <ion-input [(ngModel)]="newItem.value"></ion-input>
+    </ion-item>
+      
+    <ion-button expand="full" (click)="addItem()">¡Añadir Evento!</ion-button>
 
-</ion-content>
+    <ion-card style="height:auto">
+      <ion-item-divider style="padding-left:0px">
+        <ion-searchbar style="padding-left:8px"></ion-searchbar>
+      </ion-item-divider>  
+    </ion-card>
+
+    <ion-list #mylist>
+ 
+      <ion-list-header>
+        <ion-label>My Items</ion-label>
+      </ion-list-header>
+    
+      <ion-item-sliding *ngFor="let item of items">
+    
+        <ion-item>
+          <ion-label text-wrap>
+            <h3>{{ item.title }}</h3>
+            <ion-text color="secondary">
+              <p>{{ item.value }}</p>
+            </ion-text>
+            <p>{{ item.modified | date:'short'}}</p>
+          </ion-label>
+        </ion-item>
+    
+        <ion-item-options side="end">
+          <ion-item-option color="secondary" (click)="updateItem(item)">Update</ion-item-option>
+          <ion-item-option color="danger" (click)="deleteItem(item)">Delete</ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+     
+      </ion-list>
+
+  </ion-content>
+  
