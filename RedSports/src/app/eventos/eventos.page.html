@@ -1,58 +1,50 @@
 <ion-header >
-    <ion-toolbar color="primary">
-        <ion-title>Eventos</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  
-  <ion-content padding>
+  <ion-toolbar color="primary">
+      <ion-title>Eventos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content padding>
+  <div>
     <ion-item>
       <ion-label position="fixed"><strong>Titulo</strong></ion-label>
-      <ion-input [(ngModel)]="newItem.title"></ion-input>
+      <ion-input></ion-input>
     </ion-item>
-      
     <ion-item>
-      <ion-label position="fixed"><strong>Ubicación</strong></ion-label>
-      <ion-input [(ngModel)]="newItem.value"></ion-input>
+      <ion-label position="fixed"><strong>Descripcion</strong></ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="fixed"><strong>Ubicacion</strong></ion-label>
+      <ion-input></ion-input>
     </ion-item>
 
-    <ion-item>
-      <ion-label position="fixed"><strong>Descripción</strong></ion-label>
-      <ion-input [(ngModel)]="newItem.value"></ion-input>
-    </ion-item>
-      
     <ion-button expand="full" (click)="addItem()">¡Añadir Evento!</ion-button>
 
-    <ion-card style="height:auto">
-      <ion-item-divider style="padding-left:0px">
-        <ion-searchbar style="padding-left:8px"></ion-searchbar>
-      </ion-item-divider>  
-    </ion-card>
+  </div>
 
-    <ion-list #mylist>
- 
-      <ion-list-header>
-        <ion-label>My Items</ion-label>
-      </ion-list-header>
-    
-      <ion-item-sliding *ngFor="let item of items">
-    
-        <ion-item>
-          <ion-label text-wrap>
-            <h3>{{ item.title }}</h3>
-            <ion-text color="secondary">
-              <p>{{ item.value }}</p>
-            </ion-text>
-            <p>{{ item.modified | date:'short'}}</p>
-          </ion-label>
-        </ion-item>
-    
-        <ion-item-options side="end">
-          <ion-item-option color="secondary" (click)="updateItem(item)">Update</ion-item-option>
-          <ion-item-option color="danger" (click)="deleteItem(item)">Delete</ion-item-option>
-        </ion-item-options>
-      </ion-item-sliding>
-     
-      </ion-list>
+  <ion-card style="height:auto">
+    <ion-item-divider style="padding-left:0px">
+      <ion-searchbar (ioninput)="filterList($event)" style="padding-left:8px"></ion-searchbar>
+    </ion-item-divider>
+  </ion-card>
 
-  </ion-content>
-  
+  <div id="item" *ngFor="let item of items">
+      <ion-card color="primary" name="element" style="margin:0px;margin-bottom: 10px">
+          <ion-item style="--inner-border-width:0">
+              <img src="assets/pelota.png" style="width:128px;height: 128px" padding/>
+              <ion-item-group >
+                  <ion-item-divider style="border-bottom:none">
+                      <ion-label><strong>{{ item.titulo }}</strong></ion-label>
+                  </ion-item-divider>
+                  <ion-item-divider style="border-bottom:none">
+                      <ion-label>{{ item.descripcion }}</ion-label>
+                  </ion-item-divider>
+              </ion-item-group>
+          </ion-item>
+          <ion-label>{{ item.ubicacion }}</ion-label>
+      </ion-card>
+  </div>
+</ion-content>
