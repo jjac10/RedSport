@@ -1,44 +1,37 @@
 import { Injectable } from '@angular/core';
-import { KnownPlatform } from 'ionic'
-import * as firebase from 'firebase';
-import { FirebaseMessaging, FirebaseApp } from "@angular/fire";
-
+import { Firebase } from '@ionic-native/firebase/ngx';
+import { Platform } from '@ionic/angular';
+import { AngularFireDatabase} from '@angular/fire/database';
 
 @Injectable()
 export class FcmService {
 
-  constructor(
-      public platform: KnownPlatform
-  ){}
+  constructor(private firebase: Firebase,
+              private afs: AngularFireDatabase,
+              private platform: Platform) {}
 
   async getToken() {
-      let token;
+    let token;
 
-    if(this.platform=='android'){
-        token = firebase.messaging().getToken();
-        firebase.messaging().requestPermission();
+    if (this.platform.is('android')) {
+      token = await this.firebase.getToken();
     }
 
-    if(this.platform=='ios'){
-        token = firebase.messaging().getToken();
-        firebase.messaging().requestPermission();
+    if (this.platform.is('ios')) {
+      token = await this.firebase.getToken();
+      await this.firebase.grantPermission();
     }
 
-    if(this.platform!='browser'){
-        console.log('token en web')
-    }
-    return this.saveTokenToFirebase(token);
-  }
-  
-  private saveTokenToFirebase(token){
-    if(!token) return;
-    const ref = firebase.database().ref('tokens');
-
-    ref.set(token => {token:token;user:'asdaisd'})
+    this.saveToken(token);
   }
 
-  listenToNotifications(){
-    firebase.messaging().setBackgroundMessageHandler(payload => console.log(payload));
+  private saveToken(token) {
+    if (!token) return;
+    const devicesRef = this.afs.database.ref('pruebasNot/');
+    return devicesRef.set(token);
   }
 
+  onNotifications() {
+    return this.firebase.onNotificationOpen();
+  }
 }
