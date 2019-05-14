@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as firebase from 'firebase/app'
 
 @Component({
   selector: 'app-login',
@@ -12,4 +13,10 @@ export class LoginPage implements OnInit {
   ngOnInit() {
   }
 
+  email: string
+  pass: string
+ 
+  goToHome() {
+    //firebase.auth()
+  }
 }
