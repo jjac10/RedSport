@@ -36,7 +36,7 @@ export class EventosPage implements OnInit {
               eventos.forEach(eventos => {
                     firebase.database().ref('eventos/' + eventos.key + '/').on('value', infoEvento => {
                         let evento = infoEvento.val()
-                        evento.key = evento.key
+                        evento.key = eventos.key
                         this.items.push(evento)
                     })
                 });
