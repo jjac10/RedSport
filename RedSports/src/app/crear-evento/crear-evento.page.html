@@ -5,21 +5,20 @@
 </ion-header>
 
 <ion-content>
-    <div>
-        <ion-item>
-          <ion-label position="fixed"><strong>Titulo</strong></ion-label>
-          <ion-input></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="fixed"><strong>Descripcion</strong></ion-label>
-          <ion-input></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="fixed"><strong>Ubicacion</strong></ion-label>
-          <ion-input></ion-input>
-        </ion-item>
+  <ion-item>
+    <ion-label position="fixed"><strong>Titulo</strong></ion-label>
+    <ion-input [(ngModel)]="nombreEvento" type="text" placeholder="Nombre del evento"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="fixed"><strong>Descripcion</strong></ion-label>
+    <ion-input [(ngModel)]="descripcionEvento" type="text" placeholder="Descripcion del evento"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="fixed"><strong>Ubicacion</strong></ion-label>
+    <ion-input [(ngModel)]="ubicacionEvento" type="text" placeholder="Ubicacion del evento"></ion-input>
+  </ion-item>
+
+  <ion-button expand="full" (click)="addEvent(nombreEvento, descripcionEvento, ubicacionEvento)" 
+        [href]="'/eventos/'">¡Añadir Evento!</ion-button>
     
-        <ion-button expand="full" (click)="addItem()" [href]="'/eventos/'">¡Añadir Evento!</ion-button>
-    
-      </div>
 </ion-content>
