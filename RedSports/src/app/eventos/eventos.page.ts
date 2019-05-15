@@ -19,6 +19,7 @@ export class EventosPage implements OnInit {
   
   items = []
   ref
+  itemsFiltrados = []
 
   constructor(public navCtrl: NavController) {
     this.obtenerDatos()
@@ -63,5 +64,6 @@ export class EventosPage implements OnInit {
         return false;
       }
     });
+    
   }
 }

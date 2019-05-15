@@ -11,6 +11,7 @@ export class CrearEventoPage implements OnInit {
 
   ref
 
+
   constructor(private router: Router) { }
 
   ngOnInit() {
@@ -21,17 +22,18 @@ export class CrearEventoPage implements OnInit {
       return;
     }
 
-    var newPostKey = firebase.database().ref().child('eventos').push().key;
-
-/*
-    var eventosRef = this.ref.child("eventos");
-
-    eventosRef.push({
-      titulo: "nombreEvento",
-      descripcion: "descripcionEvento",
-      ubicacion: "ubicacionEvento"
-    })
-  */
+    //CAMBIAR POR ID CUANDO ESTE LOGIN
+    firebase.database().ref('eventos/').push({
+      creador: {
+        "gb8KcNeo7dZXUyhWmGhmHAYjosu3" : true
+      },
+      participantes: {
+        "gb8KcNeo7dZXUyhWmGhmHAYjosu3" : true
+      },
+      titulo: nombreEvento,
+      descripcion: descripcionEvento,
+      ubicacion : ubicacionEvento
+    });  
   }
   
 }
