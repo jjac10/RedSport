@@ -1,0 +1,24 @@
+<ion-header>
+    <ion-toolbar color="primary">
+    <ion-title>Nuevo evento</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label position="fixed"><strong>Titulo</strong></ion-label>
+    <ion-input [(ngModel)]="nombreEvento" type="text" placeholder="Nombre del evento"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="fixed"><strong>Descripcion</strong></ion-label>
+    <ion-input [(ngModel)]="descripcionEvento" type="text" placeholder="Descripcion del evento"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="fixed"><strong>Ubicacion</strong></ion-label>
+    <ion-input [(ngModel)]="ubicacionEvento" type="text" placeholder="Ubicacion del evento"></ion-input>
+  </ion-item>
+
+  <ion-button expand="full" (click)="addEvent(nombreEvento, descripcionEvento, ubicacionEvento)" 
+      [routerLink]="'/eventos/'">¡Añadir Evento!</ion-button>
+    
+</ion-content>
