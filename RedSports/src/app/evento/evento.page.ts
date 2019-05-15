@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as firebase from "firebase";
 import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-evento',
@@ -14,10 +15,12 @@ export class EventoPage implements OnInit {
   public subscritoAEvento: boolean 
   evento: any = {}
 
-
+  //Cambiar cuando este el login
   public user: string = "gb8KcNeo7dZXUyhWmGhmHAYjosu2"
-  public idEvento: string = '1023912310'
-  constructor(private router: Router) { 
+  public idEvento: string
+  
+  constructor(private router: Router, private route: ActivatedRoute,) { 
+    this.idEvento = this.route.snapshot.paramMap.get('id');
     this.verEvento()
     this.comprobarEventoSubscrito()
   }
