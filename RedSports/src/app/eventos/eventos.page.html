@@ -9,11 +9,11 @@
 <ion-content padding>
   <ion-card style="height:auto">
     <ion-item-divider style="padding-left:0px">
-      <ion-searchbar (ioninput)="filterList($event)" style="padding-left:8px"></ion-searchbar>
+      <ion-searchbar [(ngModel)]="buscado" (ionChange)="filter()" style="padding-left:8px"></ion-searchbar>
     </ion-item-divider>
   </ion-card>
 
-  <div id="item" *ngFor="let item of items">
+  <div id="item" *ngFor="let item of itemsFiltrados">
       <ion-card color="primary" name="element" style="margin:0px;margin-bottom: 10px">
           <ion-item [routerLink]="'/evento/' + item.key" style="--inner-border-width:0">
               <img src="assets/pelota.png" style="width:128px;height: 128px" padding/>

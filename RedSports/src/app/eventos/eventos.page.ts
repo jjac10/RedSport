@@ -17,18 +17,22 @@ export interface Evento {
 })
 export class EventosPage implements OnInit {
   
-  items = []
   ref
+  items = []  
   itemsFiltrados = []
+
+  public buscado:string = ""
 
   constructor(public navCtrl: NavController) {
     this.obtenerDatos()
+    this.itemsFiltrados = this.items
    }
 
   ngOnInit() { }
 
   obtenerDatos(){
     this.items = []
+    
     firebase.auth().signInWithEmailAndPassword('wrguide@gmail.com', 'prueba')
         .then(res => {
             console.log('logged in')
@@ -48,22 +52,14 @@ export class EventosPage implements OnInit {
         })
   }
 
+  filter(){
+    this.itemsFiltrados = this.items.filter(item => {
+      let titulo = item.titulo      
+      return titulo.toLocaleLowerCase().indexOf(this.buscado.toLocaleLowerCase())>-1;
+    })
 
-  filterList(evt) {
-    const searchTerm = evt.srcElement.value;
-    
-    if (!searchTerm) {
-      return;
-    }
-    
-    this.items = this.items.filter(currentGoal => {
-      if (currentGoal.goalName && searchTerm) {
-        if (currentGoal.goalName.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1) {
-          return true;
-        }
-        return false;
-      }
-    });
-    
+    /*this.itemsPendientesFiltrados = this.itemsPendientes.filter(item => {
+      return item.toLocaleLowerCase().indexOf(this.buscado.toLocaleLowerCase())>-1;
+    })*/
   }
 }
