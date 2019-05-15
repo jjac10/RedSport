@@ -12,9 +12,12 @@ import { AppComponent } from './app.component';
 import { firebaseConfig } from "../environments/environment";
 import { AngularFireModule } from "@angular/fire";
 import { AngularFireDatabaseModule } from "@angular/fire/database";
+import { AngularFireMessagingModule } from "@angular/fire/messaging";
 
 import { FcmService } from './fcm.service';
 import { Firebase } from '@ionic-native/firebase/ngx';
+import { HttpClientModule } from '@angular/common/http';
+
 
 
 @NgModule({
@@ -25,7 +28,9 @@ import { Firebase } from '@ionic-native/firebase/ngx';
       IonicModule.forRoot(),
       AppRoutingModule,      
       AngularFireModule.initializeApp(firebaseConfig),
-      AngularFireDatabaseModule
+      AngularFireDatabaseModule,
+      AngularFireMessagingModule,
+      HttpClientModule
     ],
     providers: [
       StatusBar,

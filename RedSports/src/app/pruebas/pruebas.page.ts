@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {AngularFireMessaging} from "@angular/fire/messaging";
+import { FcmService } from "../fcm.service";
 
 @Component({
   selector: 'app-pruebas',
@@ -7,7 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PruebasPage implements OnInit {
 
-  constructor() {}
+  constructor(public msg:AngularFireMessaging, public fcm:FcmService) {
+  
+  }
+
+  testing(){
+      this.fcm.sendFCM();
+  }
 
   ngOnInit() {
   }
