@@ -19,12 +19,12 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <ion-button size="medium" expand='full' (click)="apuntarseEnEvento()" [color]=buttonColor style="margin:10px">
-      {{ participar }}
-  </ion-button>
+  <ion-button expand='full' color="secondary" block (click)="doPrompt()"  style="margin:10px; width: 46%;float: right;">Invitar</ion-button>
+  <ion-button size="medium" expand='full' (click)="apuntarseEnEvento()" [color]=buttonColor style="margin:10px; width: 46%;">{{ participar }}</ion-button>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="borrarEvento()">
       <ion-icon name="trash"></ion-icon>
     </ion-fab-button>
   </ion-fab>
+  
 </ion-content>
