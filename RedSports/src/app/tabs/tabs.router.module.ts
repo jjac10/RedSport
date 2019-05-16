@@ -35,6 +35,15 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'mis-eventos',
+        children: [
+          {
+            path: '',
+            loadChildren: '../mis-eventos/mis-eventos.module#MisEventosPageModule'
+          }
+        ]
+      },
+      {
         path: 'chat',
         children: [
           {

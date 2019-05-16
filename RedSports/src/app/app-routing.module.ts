@@ -11,7 +11,8 @@ const routes: Routes = [
   { path: 'pruebas', loadChildren: './pruebas/pruebas.module#PruebasPageModule' },
   { path: 'perfil', loadChildren: './perfil/perfil.module#PerfilPageModule' },
   { path: 'evento/:id', loadChildren: './evento/evento.module#EventoPageModule' },
-  { path: 'crear-evento', loadChildren: './crear-evento/crear-evento.module#CrearEventoPageModule' }
+  { path: 'crear-evento', loadChildren: './crear-evento/crear-evento.module#CrearEventoPageModule' },  { path: 'mis-eventos', loadChildren: './mis-eventos/mis-eventos.module#MisEventosPageModule' }
+
 
 ];
 

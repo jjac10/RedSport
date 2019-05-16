@@ -1,0 +1,37 @@
+<ion-header >
+    <ion-toolbar color="primary">
+        <ion-title>Mis eventos</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-card style="height:auto">
+    <ion-item-divider style="padding-left:0px">
+        <ion-searchbar [(ngModel)]="filtro" (ionChange)="filtrar()" style="padding-left:8px"></ion-searchbar>
+    </ion-item-divider>
+    <ion-item-divider>
+        <ion-select (ionChange)="cambiarTipo($event)" style="margin-left: auto;margin-right: auto;width:35%;padding-left:0px" placeholder="Elige uno">
+            <ion-select-option selected value="participa">Apuntado</ion-select-option>
+            <ion-select-option value="creados">Creados por mi</ion-select-option>
+        </ion-select>
+
+    </ion-item-divider>
+</ion-card>
+
+<ion-content padding>
+        <div id="item" *ngFor="let item of itemsFiltrado">
+            <ion-card color="primary" name="element" style="margin:0px;margin-bottom: 10px">
+                <ion-item style="--inner-border-width:0">
+                    <img src="assets/pelota.png" style="width:128px;height: 128px" padding/>
+                    <ion-item-group >
+                        <ion-item-divider style="border-bottom:none">
+                            <ion-label><strong>{{item.titulo}}</strong></ion-label>
+                        </ion-item-divider>
+                        <ion-item-divider style="border-bottom:none">
+                            <ion-label>{{item.descripcion}}</ion-label>
+                        </ion-item-divider>
+                    </ion-item-group>
+                </ion-item>
+                <ion-label>{{item.ubicacion}}</ion-label>
+            </ion-card>
+        </div>
+</ion-content>
