@@ -20,7 +20,12 @@ export class NotificacionesPage implements OnInit {
         this.obtenerDatos()
     }
 
-    ngOnInit() { }
+    ngOnInit() {
+        let a = firebase.database().ref().child('eventos').orderByChild('titulo').equalTo('Petanca');
+        a.once('value').then( data => {
+            console.log(data)
+        }).catch( error => {console.log(error)})
+     }
 
     obtenerDatos(){
         this.items = []
@@ -30,6 +35,7 @@ export class NotificacionesPage implements OnInit {
                 console.log('logged in')
                 this.ref = firebase.database().ref('users/' + res.user.uid + '/eventos/'+this.modo+'/')
                 this.ref.on('value', eventosUsuarios => {
+                    
                     eventosUsuarios.forEach(eventoUsuario => {
                         firebase.database().ref('eventos/' + eventoUsuario.key + '/').on('value', infoEvento => {
                             let evento = infoEvento.val()
