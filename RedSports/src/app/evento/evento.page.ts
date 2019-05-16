@@ -104,7 +104,7 @@ export class EventoPage implements OnInit {
       inputs: [
         {
           name: 'usuario',
-          placeholder: 'usuario'
+          placeholder: 'nombre del usuario'
         },
       ],
       buttons: [
