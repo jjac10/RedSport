@@ -35,6 +35,15 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'evento/:id',
+        children: [
+          {
+            path: '',
+            loadChildren: '../evento/evento.module#EventoPageModule'
+          }
+        ]
+      },
+      {
         path: 'mis-eventos',
         children: [
           {

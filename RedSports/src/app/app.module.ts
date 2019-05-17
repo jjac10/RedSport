@@ -14,10 +14,9 @@ import { AngularFireModule } from "@angular/fire";
 import { AngularFireDatabaseModule } from "@angular/fire/database";
 import { AngularFireMessagingModule } from "@angular/fire/messaging";
 
-import { FcmService } from './fcm.service';
+import { FcmService } from './services/fcm.service';
 import { Firebase } from '@ionic-native/firebase/ngx';
 import { HttpClientModule } from '@angular/common/http';
-
 
 
 @NgModule({

@@ -38,13 +38,13 @@ export class FcmService {
     return this.firebase.onNotificationOpen();
   }
 
-  sendFCM(){
+  sendFCM(to,titulo,cuerpo){
     this.http.post('https://fcm.googleapis.com/fcm/send',
         {
-            "to" : 'ck5zqvIEmhg:APA91bEbzKbPIKOXFmMHePW0DAE5d4Hde1Kjg-S77wjLAngQhHgEy2MKg89gRfpsKaO4yQNlxdSWtVWyrtEw_I9XCUMg-RrmsaA0dg7v5fhjy75AtHB8BFSZz5jONmvIYRkAkqFKe-Ps',
+            "to" : to,
             "data": {
-                "title":"prueba20190515",
-                "body":"prueba20190515"
+                "title":titulo,
+                "body":cuerpo
             }
         },
         {

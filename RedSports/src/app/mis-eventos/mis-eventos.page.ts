@@ -37,12 +37,13 @@ export class MisEventosPage implements OnInit {
                 console.log('logged in')
                 this.ref = firebase.database().ref('users/' + res.user.uid + '/eventos/' + this.modo + '/')
                 this.ref.on('value', eventosUsuarios => {
-
                     eventosUsuarios.forEach(eventoUsuario => {
                         firebase.database().ref('eventos/' + eventoUsuario.key + '/').on('value', infoEvento => {
                             let evento = infoEvento.val()
-                            evento.key = eventoUsuario.key
+                            if(evento){
+                                evento.key = eventoUsuario.key
                             this.items.push(evento)
+                            }
                         })
                     });
                     this.itemsFiltrado = this.items;

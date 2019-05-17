@@ -4,7 +4,7 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
-import { FcmService } from './fcm.service';
+import { FcmService } from './services/fcm.service';
 import { ToastController } from '@ionic/angular';
 
 @Component({
