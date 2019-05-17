@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import * as firebase from "firebase";
 import { NavController } from '@ionic/angular';
-import { ViewEncapsulation } from '@angular/compiler/src/core';
+import { AngularFireDatabase } from '@angular/fire/database';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
     selector: 'app-mis-eventos',
@@ -16,29 +16,30 @@ export class MisEventosPage implements OnInit {
     ref;
     modo: string = 'participa'
 
-    constructor(public navCtrl: NavController) {
+    constructor(public navCtrl: NavController,public fbd:AngularFireDatabase,public fa:AngularFireAuth) {
         this.obtenerDatos();
         this.itemsFiltrado = this.items;
     }
 
     ngOnInit() {
-        let a = firebase.database().ref().child('eventos').orderByChild('titulo').equalTo('Petanca');
+        /* Busqueda 
+        let a = this.fbd.database.ref().child('eventos').orderByChild('titulo').equalTo('Petanca');
         a.once('value').then(data => {
             console.log(data)
-        }).catch(error => { console.log(error) })
+        }).catch(error => { console.log(error) })*/
     }
 
     obtenerDatos() {
         this.items = []
         this.itemsFiltrado = []
         console.log('loaded. ahora inicio sesion')
-        firebase.auth().signInWithEmailAndPassword('wrguide@gmail.com', 'prueba')
+        this.fa.auth.signInWithEmailAndPassword('wrguide@gmail.com', 'prueba')
             .then(res => {
                 console.log('logged in')
-                this.ref = firebase.database().ref('users/' + res.user.uid + '/eventos/' + this.modo + '/')
+                this.ref = this.fbd.database.ref('users/' + res.user.uid + '/eventos/' + this.modo + '/')
                 this.ref.on('value', eventosUsuarios => {
                     eventosUsuarios.forEach(eventoUsuario => {
-                        firebase.database().ref('eventos/' + eventoUsuario.key + '/').on('value', infoEvento => {
+                        this.fbd.database.ref('eventos/' + eventoUsuario.key + '/').on('value', infoEvento => {
                             let evento = infoEvento.val()
                             if(evento){
                                 evento.key = eventoUsuario.key
@@ -67,10 +68,7 @@ export class MisEventosPage implements OnInit {
       }
 
     cambiarTipo(event) {
-        console.log('a ' + this.modo)
-        console.log('b ' + event.detail.value)
         if (this.modo != event.detail.value) {
-
             this.modo = event.detail.value
             this.obtenerDatos()
         }

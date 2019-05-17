@@ -11,6 +11,7 @@ import { AppComponent } from './app.component';
 
 import { firebaseConfig } from "../environments/environment";
 import { AngularFireModule } from "@angular/fire";
+import { AngularFireAuthModule } from "@angular/fire/auth";
 import { AngularFireDatabaseModule } from "@angular/fire/database";
 import { AngularFireMessagingModule } from "@angular/fire/messaging";
 
@@ -29,6 +30,7 @@ import { HttpClientModule } from '@angular/common/http';
       AngularFireModule.initializeApp(firebaseConfig),
       AngularFireDatabaseModule,
       AngularFireMessagingModule,
+      AngularFireAuthModule,
       HttpClientModule
     ],
     providers: [

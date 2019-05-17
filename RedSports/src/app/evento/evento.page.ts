@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import * as firebase from "firebase";
+import { AngularFireDatabase } from "@angular/fire/database";
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-evento',
@@ -20,7 +21,7 @@ export class EventoPage implements OnInit {
   public user: string = "gb8KcNeo7dZXUyhWmGhmHAYjosu2"
   public idEvento: string
   
-  constructor(private router: Router, private route: ActivatedRoute, public alertCtrl: AlertController) { 
+  constructor(private router: Router, private route: ActivatedRoute, public alertCtrl: AlertController,public fbd:AngularFireDatabase) { 
     this.idEvento = this.route.snapshot.paramMap.get('id');
     this.verEvento()
     this.comprobarEventoSubscrito()
@@ -30,7 +31,7 @@ export class EventoPage implements OnInit {
   }
 
   verEvento() {
-    this.ref = firebase.database().ref('eventos/'+this.idEvento)
+    this.ref = this.fbd.database.ref('eventos/'+this.idEvento)
     this.ref.on('value', evento => { 
       if(evento.exists()) {
         this.evento.key= this.idEvento
@@ -43,25 +44,25 @@ export class EventoPage implements OnInit {
 
   apuntarseEnEvento() {
     if(this.subscritoAEvento == false) {
-      this.ref = firebase.database().ref('eventos/'+this.idEvento)
+      this.ref = this.fbd.database.ref('eventos/'+this.idEvento)
       this.ref.on('value', evento => { 
         if(evento.exists()) {
           this.ref.child('participantes').update({ [this.user]: true })
-          this.ref = firebase.database().ref('users/'+this.user+'/eventos/')
+          this.ref = this.fbd.database.ref('users/'+this.user+'/eventos/')
           this.ref.child('participa').update({ [this.idEvento]: true })
           this.participar = "Desapuntarse"
           this.apuntarse()
         }
     })} else {
-      firebase.database().ref('users/'+this.user+'/eventos/participa/'+this.idEvento).remove()
-      firebase.database().ref('eventos/'+this.idEvento+'/participantes/'+this.user).remove()
+      this.fbd.database.ref('users/'+this.user+'/eventos/participa/'+this.idEvento).remove()
+      this.fbd.database.ref('eventos/'+this.idEvento+'/participantes/'+this.user).remove()
       this.participar = "Apuntarse"
       this.apuntarse()
     }
   }
 
   comprobarEventoSubscrito() {
-    this.ref = firebase.database().ref('users/'+this.user+'/eventos/participa/'+this.idEvento)
+    this.ref = this.fbd.database.ref('users/'+this.user+'/eventos/participa/'+this.idEvento)
     this.ref.on('value', evento => { 
       if(evento.exists()) {
         this.subscritoAEvento = true
@@ -87,10 +88,10 @@ export class EventoPage implements OnInit {
   }
 
   borrarEvento() {
-    this.ref = firebase.database().ref('users/' + this.user + '/eventos/creados/'+this.idEvento)
+    this.ref = this.fbd.database.ref('users/' + this.user + '/eventos/creados/'+this.idEvento)
     this.ref.on('value', evento => { 
       if(evento.exists()) {
-        firebase.database().ref('eventos/'+this.idEvento).remove()
+        this.fbd.database.ref('eventos/'+this.idEvento).remove()
         this.ref.remove()
         this.router.navigateByUrl('tabs/eventos')
       }
@@ -128,18 +129,18 @@ export class EventoPage implements OnInit {
   }
 
   invitarUsuario(data: any) {
-    var key= firebase.database().ref('notificaciones/').push().key
-    this.ref = firebase.database().ref('users/')
+    var key= this.fbd.database.ref('notificaciones/').push().key
+    this.ref = this.fbd.database.ref('users/')
       this.ref.on('value', usuarios => {
         usuarios.forEach(usuario => {
           if(usuario.val().nombre == data.usuario) {
-            this.ref = firebase.database().ref('notificaciones/'+key)
+            this.ref = this.fbd.database.ref('notificaciones/'+key)
             this.ref.update({ 
               texto: usuario.val().nombre+" te ha invitado a un evento",
               leido: false,
               evento: this.idEvento
             })
-            firebase.database().ref('users/'+usuario.key+"/notificaciones/").update({ [key]: true })
+            this.fbd.database.ref('users/'+usuario.key+"/notificaciones/").update({ [key]: true })
             this.showAlert()
           }
       });
@@ -158,11 +159,11 @@ export class EventoPage implements OnInit {
   }
   /*
   invitarUsuario(data: any) {
-    this.ref = firebase.database().ref('users/')
+    this.ref = this.fbd.database().ref('users/')
       this.ref.on('value', usuarios => {
         usuarios.forEach(usuario => {
           if(usuario.val().nombre == data.usuario && ok) {
-            this.ref = firebase.database().ref('users/'+usuario.key).child('notificaciones').push({texto: true})
+            this.ref = this.fbd.database().ref('users/'+usuario.key).child('notificaciones').push({texto: true})
           }
       });
     })  

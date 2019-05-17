@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import * as firebase from "firebase";
+import { AngularFireDatabase } from "@angular/fire/database";
 
 @Component({
   selector: 'app-crear-evento',
@@ -9,10 +8,7 @@ import * as firebase from "firebase";
 })
 export class CrearEventoPage implements OnInit {
 
-  ref
-
-
-  constructor(private router: Router) { }
+  constructor(public fbd:AngularFireDatabase){ }
 
   ngOnInit() {
   }
@@ -23,7 +19,7 @@ export class CrearEventoPage implements OnInit {
     }
 
     //CAMBIAR POR ID CUANDO ESTE LOGIN
-    firebase.database().ref('eventos/').push({
+    this.fbd.database.ref('eventos/').push({
       creador: {
         "gb8KcNeo7dZXUyhWmGhmHAYjosu3" : true
       },

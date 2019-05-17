@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
-import * as firebase from "firebase";
 import { NavController } from '@ionic/angular';
+import { AngularFireDatabase } from '@angular/fire/database';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 export interface Evento {
   id: number,
@@ -23,7 +23,7 @@ export class EventosPage implements OnInit {
 
   public buscado:string = ""
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController,public fbd:AngularFireDatabase,public fa:AngularFireAuth) {
     this.obtenerDatos()
     this.itemsFiltrados = this.items
    }
@@ -33,13 +33,13 @@ export class EventosPage implements OnInit {
   obtenerDatos(){
     this.items = []
     
-    firebase.auth().signInWithEmailAndPassword('wrguide@gmail.com', 'prueba')
+    this.fa.auth.signInWithEmailAndPassword('wrguide@gmail.com', 'prueba')
         .then(res => {
             console.log('logged in')
-            this.ref = firebase.database().ref('eventos/')
+            this.ref = this.fbd.database.ref('eventos/')
             this.ref.on('value', eventos => {
               eventos.forEach(eventos => {
-                    firebase.database().ref('eventos/' + eventos.key + '/').on('value', infoEvento => {
+                this.fbd.database.ref('eventos/' + eventos.key + '/').on('value', infoEvento => {
                         let evento = infoEvento.val()
                         if(evento){
                             evento.key = eventos.key
