@@ -32,7 +32,9 @@ ion-button {
 
 .contenido {
     background-image: url("../../assets/bg.jpg");
+    background-size: contain;
+    background-color: #fff;
     background-repeat: no-repeat;
-    background-position: center top;
+    background-position: center bottom;
     padding-top: 10%;
 }
