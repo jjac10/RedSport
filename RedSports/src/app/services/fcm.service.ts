@@ -18,7 +18,7 @@ export class FcmService {
     private http:HttpClient
   ) {}
 
-  async getToken(guardar) {
+  async getToken() {
     let token;
 
     if (this.platform.is('android')) {
@@ -29,16 +29,15 @@ export class FcmService {
       token = await this.firebase.getToken();
       await this.firebase.grantPermission();
     }
-    if(guardar)
-        this.saveToken(token);
-    else
-        return token
+    
+    this.saveToken(token);
+    
   }
 
   private saveToken(token) {
     if (!token) return;
-    const devicesRef = this.afs.database.ref('pruebasNot/');
-    return devicesRef.set(token);
+    let nodo = this.afs.database.ref('users/'+this.auth.auth.currentUser.uid+"/token/");
+    return nodo.set(token);
   }
 
   onNotifications() {

@@ -24,8 +24,7 @@ export class AuthenticateService {
                             "apellidos": value.apellidos,
                             "nick": value.nick,
                             "email": value.email,
-                            "telefono": value.telefono,
-                            "token": this.fcm.getToken(false)
+                            "telefono": value.telefono
                         }
                     }).then(
                         res => resolve(res),
@@ -39,11 +38,10 @@ export class AuthenticateService {
         return new Promise<any>((resolve, reject) => {
             this.firebase.auth.signInWithEmailAndPassword(value.email, value.password)
         .then( data => {
-             let nodo = this.database.database.ref('users/'+data.user.uid+"/token/");
-             nodo.set(this.fcm.getToken(false)).then(
+            this.fcm.getToken().then(
                 res => resolve(res),
                 err => reject(err)
-             );
+            )           
             })
         })
     }
