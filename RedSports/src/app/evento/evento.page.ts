@@ -12,8 +12,8 @@ import { AlertController } from '@ionic/angular';
 })
 export class EventoPage implements OnInit {
 
-  latitud: number = 38.383638;
-  longitud: number = -0.5117858;
+  lat: number = 38.353738;
+  lng: number = -0.4901846;
   zoom: number = 8;
 
   ref
