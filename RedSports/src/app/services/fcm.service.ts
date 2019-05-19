@@ -4,8 +4,6 @@ import { Platform } from '@ionic/angular';
 import { AngularFireDatabase} from '@angular/fire/database';
 import { HttpClient} from '@angular/common/http';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { ElementSchemaRegistry } from '@angular/compiler';
-
 
 @Injectable()
 export class FcmService {

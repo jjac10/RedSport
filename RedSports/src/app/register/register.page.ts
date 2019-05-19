@@ -3,6 +3,7 @@ import { AuthenticateService } from '../services/authentication.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FcmService } from '../services/fcm.service';
+import { AngularFireDatabase } from '@angular/fire/database';
 
 @Component({
   selector: 'app-register',
@@ -49,7 +50,7 @@ export class RegisterPage implements OnInit {
     private router: Router,
     private authService: AuthenticateService,
     private formBuilder: FormBuilder,
-    private fcm: FcmService
+    private database: AngularFireDatabase
   ) { }
 
   ngOnInit() {
@@ -87,21 +88,39 @@ export class RegisterPage implements OnInit {
 
   register(value){
     if(value.password == value.password2) {
-      this.authService.registerUser(value)
-      .then(res => {
-        console.log(res);
-        this.errorMessage = "";
-        this.successMessage = "La cuenta se ha creado correctamente. Ya puede iniciar sesión.";
-      }, err => {
-        if(err.message == "The email address is already in use by another account.") {
-          this.errorMessage = "El email introducido ya está registrado"
-        } else {
-          this.errorMessage = err.message
-        }
-        this.successMessage = "";
-      })
+      this.authService.registerUser(value).then(
+        res => {
+          let node = this.database.database.ref('users/')
 
-      this.router.navigateByUrl('tabs/inicio')
+          console.log(res)
+
+          node.update({ 
+              [res.user.uid]: {
+                  "nombre": value.nombre,
+                  "apellidos": value.apellidos,
+                  "nick": value.nick,
+                  "email": value.email,
+                  "telefono": value.telefono
+              }
+            }
+          )
+          
+          this.errorMessage = "";
+          this.successMessage = "La cuenta se ha creado correctamente. Ya puede iniciar sesión.";
+  
+          this.router.navigateByUrl('tabs/inicio')
+        }, 
+        err => {
+          console.log(err)
+
+          if(err.message == "The email address is already in use by another account.") {
+            this.errorMessage = "El email introducido ya está registrado"
+          } else {
+            this.errorMessage = err.message
+          }
+          this.successMessage = "";
+        }
+      )
     } else {
       this.errorMessage = "Las contraseñas son diferentes"
     }
