@@ -62,16 +62,20 @@ const routes: Routes = [
         ]
       },
       {
-        path: '',
-        redirectTo: '/tabs/tab1',
-        pathMatch: 'full'
-      },
-      {
-        path: 'evento',
+        path: 'perfil',
         children: [
           {
             path: '',
-            loadChildren: '../evento/evento.module#EventoPageModule'
+            loadChildren: '../perfil/perfil.module#PerfilPageModule'
+          }
+        ]
+      },
+      {
+        path: 'crear-evento',
+        children: [
+          {
+            path: '',
+            loadChildren: '../crear-evento/crear-evento.module#CrearEventoPageModule'
           }
         ]
       },

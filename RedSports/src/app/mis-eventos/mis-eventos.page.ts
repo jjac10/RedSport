@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { AuthenticateService } from '../services/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-mis-eventos',
@@ -16,18 +18,42 @@ export class MisEventosPage implements OnInit {
     ref;
     modo: string = 'participa'
 
-    constructor(public navCtrl: NavController,public fbd:AngularFireDatabase,public fa:AngularFireAuth) {
-        this.obtenerDatos();
-        this.itemsFiltrado = this.items;
-    }
+    constructor (
+        public navCtrl: NavController,
+        public fbd:AngularFireDatabase,
+        public fa:AngularFireAuth,
+        private router: Router,
+        private authService: AuthenticateService
+    ) { }
 
     ngOnInit() {
+        this.obtenerDatos();
+        this.itemsFiltrado = this.items;
         /* Busqueda 
         let a = this.fbd.database.ref().child('eventos').orderByChild('titulo').equalTo('Petanca');
         a.once('value').then(data => {
             console.log(data)
         }).catch(error => { console.log(error) })*/
     }
+
+    userProfile() {
+      this.router.navigateByUrl('/tabs/perfil')
+    }
+    
+    search() {
+        this.router.navigateByUrl('/tabs/eventos')
+      }
+    
+      logout() {
+        this.authService.logoutUser()
+        .then(res => {
+          console.log(res)
+          this.router.navigateByUrl('/')
+        })
+        .catch(error => {
+          console.log(error)
+        })
+      }
 
     obtenerDatos() {
         this.items = []

@@ -14,11 +14,12 @@ export class PruebasPage implements OnInit {
   }
 
   testing(){
-      this.fcm.sendFCM(
-          'ck5zqvIEmhg:APA91bEbzKbPIKOXFmMHePW0DAE5d4Hde1Kjg-S77wjLAngQhHgEy2MKg89gRfpsKaO4yQNlxdSWtVWyrtEw_I9XCUMg-RrmsaA0dg7v5fhjy75AtHB8BFSZz5jONmvIYRkAkqFKe-Ps',
-          'Titulo',
-          'Cuerpo'
-      );
+    this.fcm.enviarNotificacion('WRGuide','enlace','texto')
+    /*this.fcm.sendFCM(
+        'ck5zqvIEmhg:APA91bEbzKbPIKOXFmMHePW0DAE5d4Hde1Kjg-S77wjLAngQhHgEy2MKg89gRfpsKaO4yQNlxdSWtVWyrtEw_I9XCUMg-RrmsaA0dg7v5fhjy75AtHB8BFSZz5jONmvIYRkAkqFKe-Ps',
+        'Titulo',
+        'Cuerpo'
+    );*/
   }
 
   ngOnInit() {

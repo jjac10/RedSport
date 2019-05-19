@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { AuthenticateService } from '../services/authentication.service';
+import { Router } from '@angular/router';
 
 export interface Evento {
   id: number,
@@ -23,12 +25,38 @@ export class EventosPage implements OnInit {
 
   public buscado:string = ""
 
-  constructor(public navCtrl: NavController,public fbd:AngularFireDatabase,public fa:AngularFireAuth) {
+  constructor(
+    public navCtrl: NavController,
+    public fbd:AngularFireDatabase,
+    public fa:AngularFireAuth,
+    private router: Router,
+    private authService: AuthenticateService
+  ) 
+  {
     this.obtenerDatos()
     this.itemsFiltrados = this.items
-   }
+  }
 
   ngOnInit() { }
+
+  userProfile() {
+    this.router.navigateByUrl('/tabs/perfil')
+  }
+
+  search() {
+    this.router.navigateByUrl('/tabs/eventos')
+  }
+
+  logout() {
+    this.authService.logoutUser()
+    .then(res => {
+      console.log(res)
+      this.router.navigateByUrl('/')
+    })
+    .catch(error => {
+      console.log(error)
+    })
+  }
 
   obtenerDatos(){
     this.items = []
