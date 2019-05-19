@@ -4,6 +4,7 @@ import { Platform } from '@ionic/angular';
 import { AngularFireDatabase} from '@angular/fire/database';
 import { HttpClient} from '@angular/common/http';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { ElementSchemaRegistry } from '@angular/compiler';
 
 
 @Injectable()
@@ -17,7 +18,7 @@ export class FcmService {
     private http:HttpClient
   ) {}
 
-  async getToken() {
+  async getToken(guardar) {
     let token;
 
     if (this.platform.is('android')) {
@@ -28,8 +29,10 @@ export class FcmService {
       token = await this.firebase.getToken();
       await this.firebase.grantPermission();
     }
-
-    this.saveToken(token);
+    if(guardar)
+        this.saveToken(token);
+    else
+        return token
   }
 
   private saveToken(token) {
