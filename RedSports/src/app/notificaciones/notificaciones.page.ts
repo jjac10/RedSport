@@ -45,7 +45,6 @@ export class NotificacionesPage implements OnInit {
     logout() {
         this.authService.logoutUser()
         .then(res => {
-            console.log(res)
             this.router.navigateByUrl('/')
         })
         .catch(error => {
@@ -54,10 +53,8 @@ export class NotificacionesPage implements OnInit {
     }
 
     getNotices(){
-        console.log('cargo noticias');
         let nodo = this.fbd.database.ref('notificaciones/').orderByChild('para').equalTo(this.auth.auth.currentUser.uid);
         nodo.on('value', listaNoticias => {
-            console.log(listaNoticias)
             listaNoticias.forEach( noticia => {
                 let notice = noticia.val();
                 if(notice){

@@ -26,14 +26,14 @@ export class MisEventosPage implements OnInit {
         private authService: AuthenticateService
     ) { }
 
-    ngOnInit() {
-        this.obtenerDatos();
-        this.itemsFiltrado = this.items;
-        /* Busqueda 
-        let a = this.fbd.database.ref().child('eventos').orderByChild('titulo').equalTo('Petanca');
-        a.once('value').then(data => {
-            console.log(data)
-        }).catch(error => { console.log(error) })*/
+    ngOnInit(){}
+
+    ionViewDidEnter(){
+        if(this.fa.auth.currentUser){
+            this.obtenerDatos();
+            this.itemsFiltrado = this.items;
+        } else
+            this.router.navigateByUrl('/')
     }
 
     userProfile() {
@@ -58,28 +58,20 @@ export class MisEventosPage implements OnInit {
     obtenerDatos() {
         this.items = []
         this.itemsFiltrado = []
-        console.log('loaded. ahora inicio sesion')
-        this.fa.auth.signInWithEmailAndPassword('wrguide@gmail.com', 'prueba')
-            .then(res => {
-                console.log('logged in')
-                this.ref = this.fbd.database.ref('users/' + res.user.uid + '/eventos/' + this.modo + '/')
-                this.ref.on('value', eventosUsuarios => {
-                    eventosUsuarios.forEach(eventoUsuario => {
-                        this.fbd.database.ref('eventos/' + eventoUsuario.key + '/').on('value', infoEvento => {
-                            let evento = infoEvento.val()
-                            if(evento){
-                                evento.key = eventoUsuario.key
-                            this.items.push(evento)
-                            }
-                        })
-                    });
-                    this.itemsFiltrado = this.items;
+        
+        this.ref = this.fbd.database.ref('users/' + this.fa.auth.currentUser.uid + '/eventos/' + this.modo + '/')
+        this.ref.on('value', eventosUsuarios => {
+            eventosUsuarios.forEach(eventoUsuario => {
+                this.fbd.database.ref('eventos/' + eventoUsuario.key + '/').on('value', infoEvento => {
+                    let evento = infoEvento.val()
+                    if(evento){
+                        evento.key = eventoUsuario.key
+                        this.items.push(evento)
+                    }
                 })
-            })
-            .catch(err => {
-                console.log(err)
-            })
-        console.log('pepe')
+            });
+            this.itemsFiltrado = this.items;
+        })
     }
 
     filtrar(){
