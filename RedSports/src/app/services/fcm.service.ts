@@ -38,6 +38,26 @@ export class FcmService {
     return this.firebase.onNotificationOpen();
   }
 
+  enviarNotificacion(usuario,enlace,texto,estado,fecha){
+
+    this.afs.database.ref('users/').orderByChild('nick').equalTo(usuario).on('value', data => {
+        data.forEach( item => {
+            let user = item.val();
+            user.key = item.key;
+            console.log(user);
+        });
+    })
+
+    /*let node = this.afs.database.ref('notificaciones/')
+    node.push({
+        "para":"a",
+        "enlace":"b",
+        "texto":"c",
+        "estado":"d",
+        "fecha":"e"
+    })*/
+}
+
   sendFCM(to,titulo,cuerpo){
     this.http.post('https://fcm.googleapis.com/fcm/send',
         {

@@ -20,10 +20,8 @@ import { Firebase } from '@ionic-native/firebase/ngx';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AuthenticateService } from './authentication.service';
-import { environment } from 'src/environments/environment';
+import { ReactiveFormsModule,FormBuilder } from '@angular/forms';
 
-import * as firebase from 'firebase'
-import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -37,6 +35,7 @@ import { ReactiveFormsModule } from '@angular/forms';
       AngularFireDatabaseModule,
       AngularFireMessagingModule,
       AngularFireAuthModule,
+      RouterModule,
       HttpClientModule
     ],
     providers: [
@@ -44,6 +43,7 @@ import { ReactiveFormsModule } from '@angular/forms';
       SplashScreen,
       AuthenticateService,
       ReactiveFormsModule,
+      FormBuilder,
       Firebase,FcmService,
       { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
     ],
