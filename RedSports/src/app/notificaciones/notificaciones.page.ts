@@ -12,6 +12,9 @@ import { AngularFireAuth } from '@angular/fire/auth';
 })
 export class NotificacionesPage implements OnInit {
     
+    itemsPorLeer = []
+    itemsLeidos = []
+
     constructor(
         public navCtrl: NavController,
         private router: Router,
@@ -20,8 +23,15 @@ export class NotificacionesPage implements OnInit {
         public auth:AngularFireAuth
     ) {}
 
-    ngOnInit() {
-        console.log(this.auth.auth.currentUser);
+    ngOnInit() {}
+
+    ionViewDidEnter(){
+        this.itemsPorLeer = []
+        this.itemsLeidos = []
+        if(this.auth.auth.currentUser)
+            this.getNotices();
+        else
+            this.router.navigateByUrl('/')
     }
 
     search() {
@@ -32,12 +42,9 @@ export class NotificacionesPage implements OnInit {
       this.router.navigateByUrl('/tabs/perfil')
     }
 
-    
-
     logout() {
         this.authService.logoutUser()
         .then(res => {
-            console.log(res)
             this.router.navigateByUrl('/')
         })
         .catch(error => {
@@ -46,19 +53,20 @@ export class NotificacionesPage implements OnInit {
     }
 
     getNotices(){
-        let ref = this.fbd.database.ref('notificaciones/').orderByChild('para').equalTo(this.auth.auth.currentUser.uid)
-                /*ref.on('value', eventosUsuarios => {
-                    eventosUsuarios.forEach(eventoUsuario => {
-                        this.fbd.database.ref('eventos/' + eventoUsuario.key + '/').on('value', infoEvento => {
-                            let evento = infoEvento.val()
-                            if(evento){
-                                evento.key = eventoUsuario.key
-                            this.items.push(evento)
-                            }
-                        })
-                    });
-                    this.itemsFiltrado = this.items;
-                })*/
+        let nodo = this.fbd.database.ref('notificaciones/').orderByChild('para').equalTo(this.auth.auth.currentUser.uid);
+        nodo.on('value', listaNoticias => {
+            listaNoticias.forEach( noticia => {
+                let notice = noticia.val();
+                if(notice){
+                    notice.key = noticia.key
+                    if(notice.leido)
+                        this.itemsLeidos.push(notice)
+                    else 
+                        this.itemsPorLeer.push(notice)
+                }               
+            })                               
+        })
+        
     }
-
 }
+

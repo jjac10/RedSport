@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AngularFireDatabase } from "@angular/fire/database";
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
@@ -12,6 +12,11 @@ import { AuthenticateService } from '../services/authentication.service';
   styleUrls: ['./evento.page.scss'],
 })
 export class EventoPage implements OnInit {
+
+  lat: number = 38.353738;
+  lng: number = -0.4901846;
+  zoom: number = 8;
+
   ref
   public buttonColor: string = "secondary"
   public participar: string = "Participar"
@@ -36,6 +41,7 @@ export class EventoPage implements OnInit {
   }
 
   ngOnInit() {
+    this.obtenerCoordenadas()
   }
 
   userProfile() {
@@ -184,15 +190,12 @@ export class EventoPage implements OnInit {
       _alert.present(); 
     })
   }
-  /*
-  invitarUsuario(data: any) {
-    this.ref = this.fbd.database().ref('users/')
-      this.ref.on('value', usuarios => {
-        usuarios.forEach(usuario => {
-          if(usuario.val().nombre == data.usuario && ok) {
-            this.ref = this.fbd.database().ref('users/'+usuario.key).child('notificaciones').push({texto: true})
-          }
-      });
+  
+  obtenerCoordenadas() {
+    this.ref = this.fbd.database.ref('eventos/'+this.idEvento+'/coordenadas')
+      this.ref.on('value', coordenadas => {
+        this.lat = coordenadas.val().latitud
+        this.lng = coordenadas.val().longitud
     })  
-  }*/
+  }
 }

@@ -4,14 +4,17 @@ import { AngularFireAuth } from "@angular/fire/auth";
 @Injectable()
 export class AuthenticateService {
 
-    constructor(public firebase:AngularFireAuth) {}
+    constructor(
+        private firebase:AngularFireAuth,
+    ) {}
 
     registerUser(value) {
         return new Promise<any>((resolve, reject) => {
-        this.firebase.auth.createUserWithEmailAndPassword(value.email, value.password)
-        .then(
-            res => resolve(res),
-            err => reject(err))
+            this.firebase.auth.createUserWithEmailAndPassword(value.email, value.password)
+            .then(
+                res => resolve(res),
+                err => reject(err)
+            )
         })
     }
 
@@ -20,7 +23,7 @@ export class AuthenticateService {
             this.firebase.auth.signInWithEmailAndPassword(value.email, value.password)
         .then(
             res => resolve(res),
-            err => reject(err))
+            err => reject(err))           
         })
     }
 
@@ -29,9 +32,9 @@ export class AuthenticateService {
             if(this.firebase.auth.currentUser) {
                 this.firebase.auth.signOut()
                 .then(() => {
-                    console.log("Ha cerrado sesión")
                     resolve()
                 }).catch((error) => {
+                    console.log(error)
                     reject()
                 })
             }

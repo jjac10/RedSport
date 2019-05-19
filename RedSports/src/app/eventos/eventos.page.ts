@@ -60,26 +60,22 @@ export class EventosPage implements OnInit {
 
   obtenerDatos(){
     this.items = []
-    
-    this.fa.auth.signInWithEmailAndPassword('wrguide@gmail.com', 'prueba')
-        .then(res => {
-            console.log('logged in')
-            this.ref = this.fbd.database.ref('eventos/')
-            this.ref.on('value', eventos => {
-              eventos.forEach(eventos => {
-                this.fbd.database.ref('eventos/' + eventos.key + '/').on('value', infoEvento => {
-                        let evento = infoEvento.val()
-                        if(evento){
-                            evento.key = eventos.key
-                            this.items.push(evento)
-                        }
-                    })
-                });
+       
+    console.log('logged in')
+    this.ref = this.fbd.database.ref('eventos/')
+    this.ref.on('value', eventos => {
+        eventos.forEach(eventos => {
+        this.fbd.database.ref('eventos/' + eventos.key + '/').on('value', infoEvento => {
+                let evento = infoEvento.val()
+                if(evento){
+                    evento.key = eventos.key
+                    this.items.push(evento)
+                }
             })
-        })
-        .catch(err => {
-            console.log(err)
-        })
+        });
+    })
+        
+        
   }
 
   filter(){

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { AuthenticateService } from '../services/authentication.service';
+import { FcmService } from '../services/fcm.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,8 @@ export class LoginPage implements OnInit {
   constructor(
     private router: Router,
     private authService: AuthenticateService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private fcm: FcmService
     ) { }
 
   ngOnInit() {
@@ -34,11 +36,11 @@ export class LoginPage implements OnInit {
 
   validation_messages = {
     'email': [
-      { type: 'required', message: 'Obligatorio introducir email' },
+      { type: 'required', message: 'Introduce tu email' },
       { type: 'pattern', message: 'Introduce un email existente' }
     ],
     'password': [
-      { type: 'required', message: 'Obligatorio introducir contraseña' },
+      { type: 'required', message: 'Introduce tu contraseña' },
       { type: 'pattern', message: 'La contraseña debe tener mínimo 6 caracteres' }
     ]
   }
@@ -47,6 +49,7 @@ export class LoginPage implements OnInit {
     this.authService.loginUser(value)
     .then(res => {
       console.log(res)
+      this.fcm.getToken()
       this.errorMessage = ""
       this.router.navigateByUrl('tabs/inicio')
     }, err => {
@@ -61,7 +64,6 @@ export class LoginPage implements OnInit {
   }
 
   register() {
-    console.log("registroo")
     this.router.navigateByUrl('/register')
   }
 }
