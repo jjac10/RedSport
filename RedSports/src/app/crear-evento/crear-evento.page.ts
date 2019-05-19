@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from "@angular/fire/database";
+import { AuthenticateService } from '../authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-crear-evento',
@@ -8,9 +10,33 @@ import { AngularFireDatabase } from "@angular/fire/database";
 })
 export class CrearEventoPage implements OnInit {
 
-  constructor(public fbd:AngularFireDatabase){ }
+  constructor(
+    public fbd:AngularFireDatabase,
+    private router: Router,
+    private authService: AuthenticateService
+  )
+  { }
 
   ngOnInit() {
+  }
+
+  userProfile() {
+    this.router.navigateByUrl('/tabs/perfil')
+  }
+
+  search() {
+    this.router.navigateByUrl('/tabs/eventos')
+  }
+
+  logout() {
+    this.authService.logoutUser()
+    .then(res => {
+      console.log(res)
+      this.router.navigateByUrl('/')
+    })
+    .catch(error => {
+      console.log(error)
+    })
   }
 
   addEvent(nombreEvento: string, descripcionEvento: string, ubicacionEvento: string): void {

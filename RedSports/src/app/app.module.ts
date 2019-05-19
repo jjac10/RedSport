@@ -19,6 +19,12 @@ import { FcmService } from './services/fcm.service';
 import { Firebase } from '@ionic-native/firebase/ngx';
 import { HttpClientModule } from '@angular/common/http';
 
+import { AuthenticateService } from './authentication.service';
+import { environment } from 'src/environments/environment';
+
+import * as firebase from 'firebase'
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 @NgModule({
     declarations: [AppComponent],
@@ -36,6 +42,8 @@ import { HttpClientModule } from '@angular/common/http';
     providers: [
       StatusBar,
       SplashScreen,
+      AuthenticateService,
+      ReactiveFormsModule,
       Firebase,FcmService,
       { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
     ],

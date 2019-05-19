@@ -3,6 +3,7 @@ import { AngularFireDatabase } from "@angular/fire/database";
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { AuthenticateService } from '../authentication.service';
 
 
 @Component({
@@ -21,13 +22,39 @@ export class EventoPage implements OnInit {
   public user: string = "gb8KcNeo7dZXUyhWmGhmHAYjosu2"
   public idEvento: string
   
-  constructor(private router: Router, private route: ActivatedRoute, public alertCtrl: AlertController,public fbd:AngularFireDatabase) { 
+  constructor(
+    private router: Router, 
+    private route: ActivatedRoute, 
+    public alertCtrl: AlertController,
+    public fbd:AngularFireDatabase,
+    private authService: AuthenticateService
+  )
+  { 
     this.idEvento = this.route.snapshot.paramMap.get('id');
     this.verEvento()
     this.comprobarEventoSubscrito()
   }
 
   ngOnInit() {
+  }
+
+  userProfile() {
+    this.router.navigateByUrl('/tabs/perfil')
+  }
+  
+  search() {
+    this.router.navigateByUrl('/tabs/eventos')
+  }
+
+  logout() {
+    this.authService.logoutUser()
+    .then(res => {
+      console.log(res)
+      this.router.navigateByUrl('/')
+    })
+    .catch(error => {
+      console.log(error)
+    })
   }
 
   verEvento() {

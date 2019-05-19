@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { AuthenticateService } from '../authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -7,17 +9,55 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+  validations_form: FormGroup;
+  errorMessage: string = '';
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private authService: AuthenticateService,
+    private formBuilder: FormBuilder
+    ) { }
 
   ngOnInit() {
+    this.validations_form = this.formBuilder.group({
+      email: new FormControl('', Validators.compose([
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
+      ])),
+      
+      password: new FormControl('', Validators.compose([
+        Validators.minLength(6),
+        Validators.required
+      ]))
+    })
   }
 
-  email: string
-  pass: string
+  validation_messages = {
+    'email': [
+      { type: 'required', message: 'Obligatorio introducir email' },
+      { type: 'pattern', message: 'Introduce un email existente' }
+    ],
+    'password': [
+      { type: 'required', message: 'Obligatorio introducir contraseña' },
+      { type: 'pattern', message: 'La contraseña debe tener mínimo 6 caracteres' }
+    ]
+  }
 
-  login() {
-    this.router.navigateByUrl('tabs/inicio')
+  login(value) {
+    this.authService.loginUser(value)
+    .then(res => {
+      console.log(res)
+      this.errorMessage = ""
+      this.router.navigateByUrl('tabs/inicio')
+    }, err => {
+      if(err.message == "There is no user record corresponding to this identifier. The user may have been deleted.") {
+        this.errorMessage = "No existe el usuario seleccionado"
+      } else if(err.message == "The password is invalid or the user does not have a password."){
+        this.errorMessage = "Contraseña inválida o el usuario no tiene una"
+      } else {
+        this.errorMessage = err.message
+      }
+    })
   }
 
   register() {

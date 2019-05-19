@@ -1,10 +1,23 @@
 <ion-header>
     <ion-toolbar color="primary">
-    <ion-title>Nuevo evento</ion-title>
-  </ion-toolbar>
-</ion-header>
+      <ion-buttons slot="secondary">
+        <ion-button (click)="userProfile()">
+          <ion-icon slot="icon-only" name="contact"></ion-icon>
+        </ion-button>
+        <ion-button (click)="search()">
+          <ion-icon slot="icon-only" name="search"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-buttons slot="primary">
+        <ion-button (click)="logout()">
+          <ion-icon slot="icon-only" name="exit"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title><strong>Crear evento</strong></ion-title>
+    </ion-toolbar>
+  </ion-header>
 
-<ion-content>
+<ion-content padding>
   <ion-item>
     <ion-label position="fixed"><strong>Titulo</strong></ion-label>
     <ion-input [(ngModel)]="nombreEvento" type="text" placeholder="Nombre del evento"></ion-input>
