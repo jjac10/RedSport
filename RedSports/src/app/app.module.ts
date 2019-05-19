@@ -19,7 +19,7 @@ import { FcmService } from './services/fcm.service';
 import { Firebase } from '@ionic-native/firebase/ngx';
 import { HttpClientModule } from '@angular/common/http';
 
-import { AuthenticateService } from './authentication.service';
+import { AuthenticateService } from './services/authentication.service';
 import { ReactiveFormsModule,FormBuilder } from '@angular/forms';
 
 
