@@ -65,23 +65,6 @@ export class FcmService {
     })
   }
 
-  enviarDatosUsuario(nombre, apellidos, nick, email, telefono, uid,token) {
-    let node = this.afs.database.ref('users/')
-    
-    node.update({ 
-      [uid]: {
-        "nombre": nombre,
-          "apellidos": apellidos,
-          "nick": nick,
-          "email": email,
-          "telefono": telefono,
-          "token":token
-      }
-    })
-  }
-
-
-
   sendFCM(to,titulo,cuerpo){
     this.http.post('https://fcm.googleapis.com/fcm/send',
     {

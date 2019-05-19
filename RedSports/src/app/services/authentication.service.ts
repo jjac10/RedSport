@@ -25,7 +25,7 @@ export class AuthenticateService {
                             "nick": value.nick,
                             "email": value.email,
                             "telefono": value.telefono,
-                            "token":this.fcm.getToken(false)
+                            "token": this.fcm.getToken(false)
                         }
                     }).then(
                         res => resolve(res),
