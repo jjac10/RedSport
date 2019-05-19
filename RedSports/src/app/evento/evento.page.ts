@@ -15,7 +15,8 @@ export class EventoPage implements OnInit {
 
   lat: number = 38.353738;
   lng: number = -0.4901846;
-  zoom: number = 8;
+  zoom: number = 15;
+  
 
   ref
   public buttonColor: string = "secondary"
@@ -24,9 +25,11 @@ export class EventoPage implements OnInit {
   evento: any = {}
 
   //Cambiar cuando este el login
-  public user: string = "gb8KcNeo7dZXUyhWmGhmHAYjosu2"
+  public user: string = "gb8KcNeo7dZXUyhWmGhmHAYjosu3"
   public idEvento: string
   
+  imagen: string;
+
   constructor(
     private router: Router, 
     private route: ActivatedRoute, 
@@ -36,12 +39,13 @@ export class EventoPage implements OnInit {
   )
   { 
     this.idEvento = this.route.snapshot.paramMap.get('id');
+    this.imagen  = this.route.snapshot.paramMap.get('id');
     this.verEvento()
     this.comprobarEventoSubscrito()
+    this.obtenerCoordenadas()
   }
 
   ngOnInit() {
-    this.obtenerCoordenadas()
   }
 
   userProfile() {
@@ -121,11 +125,10 @@ export class EventoPage implements OnInit {
   }
 
   borrarEvento() {
-    this.ref = this.fbd.database.ref('users/' + this.user + '/eventos/creados/'+this.idEvento)
-    this.ref.on('value', evento => { 
-      if(evento.exists()) {
+    this.ref = this.fbd.database.ref('eventos/'+this.idEvento+'/creador/'+this.user)
+    this.ref.on('value', creador => { 
+      if(creador.exists()) {
         this.fbd.database.ref('eventos/'+this.idEvento).remove()
-        this.ref.remove()
         this.router.navigateByUrl('tabs/eventos')
       }
     })
