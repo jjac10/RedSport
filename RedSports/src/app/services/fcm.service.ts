@@ -65,7 +65,7 @@ export class FcmService {
     })
   }
 
-  enviarDatosUsuario(nombre, apellidos, nick, email, telefono, uid) {
+  enviarDatosUsuario(nombre, apellidos, nick, email, telefono, uid,token) {
     let node = this.afs.database.ref('users/')
     
     node.update({ 
@@ -74,7 +74,8 @@ export class FcmService {
           "apellidos": apellidos,
           "nick": nick,
           "email": email,
-          "telefono": telefono
+          "telefono": telefono,
+          "token":token
       }
     })
   }

@@ -16,19 +16,35 @@ export class AuthenticateService {
         return new Promise<any>((resolve, reject) => {
             this.firebase.auth.createUserWithEmailAndPassword(value.email, value.password)
             .then(
-                data => this.fcm.enviarDatosUsuario(
-                    value.nombre, value.apellidos, value.nick, 
-                    value.email, value.telefono, data.user.uid),
-                err => reject(err))    
+                data => {
+                    let node = this.database.database.ref('users/')
+                    node.update({ 
+                        [data.user.uid]: {
+                            "nombre": value.nombre,
+                            "apellidos": value.apellidos,
+                            "nick": value.nick,
+                            "email": value.email,
+                            "telefono": value.telefono,
+                            "token":this.fcm.getToken(false)
+                        }
+                    }).then(
+                        res => resolve(res),
+                        err => reject(err)  
+                    )
+                })
         })
     }
 
     loginUser(value) {
         return new Promise<any>((resolve, reject) => {
             this.firebase.auth.signInWithEmailAndPassword(value.email, value.password)
-        .then(
-            res => resolve(res),
-            err => reject(err))
+        .then( data => {
+             let nodo = this.database.database.ref('users/'+data.user.uid+"/token/");
+             nodo.set(this.fcm.getToken(false)).then(
+                res => resolve(res),
+                err => reject(err)
+             );
+            })
         })
     }
 

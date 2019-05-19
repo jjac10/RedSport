@@ -88,18 +88,18 @@ export class RegisterPage implements OnInit {
   register(value){
     if(value.password == value.password2) {
       this.authService.registerUser(value)
-      // .then(res => {
-      //   console.log(res);
-      //   this.errorMessage = "";
-      //   this.successMessage = "La cuenta se ha creado correctamente. Ya puede iniciar sesión.";
-      // }, err => {
-      //   if(err.message == "The email address is already in use by another account.") {
-      //     this.errorMessage = "El email introducido ya está registrado"
-      //   } else {
-      //     this.errorMessage = err.message
-      //   }
-      //   this.successMessage = "";
-      // })
+      .then(res => {
+        console.log(res);
+        this.errorMessage = "";
+        this.successMessage = "La cuenta se ha creado correctamente. Ya puede iniciar sesión.";
+      }, err => {
+        if(err.message == "The email address is already in use by another account.") {
+          this.errorMessage = "El email introducido ya está registrado"
+        } else {
+          this.errorMessage = err.message
+        }
+        this.successMessage = "";
+      })
 
       this.router.navigateByUrl('tabs/inicio')
     } else {
