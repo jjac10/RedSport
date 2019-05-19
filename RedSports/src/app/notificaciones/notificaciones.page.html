@@ -18,20 +18,36 @@
       </ion-header>
 
       <ion-content padding>
-        <div id="item" *ngFor="let item of itemsFiltrado">
+        <div id="item" *ngFor="let item of itemsPorLeer">
             <ion-card [routerLink]="'/tabs/evento/' + item.key" color="primary" name="element" style="margin:0px;margin-bottom: 10px">
                 <ion-item style="--inner-border-width:0">
                     <img src="assets/pelota.png" style="width:128px;height: 128px" padding/>
                     <ion-item-group >
                         <ion-item-divider style="border-bottom:none">
-                            <ion-label><strong>{{item.titulo}}</strong></ion-label>
+                            <ion-label><strong>{{item.leido}}</strong></ion-label>
                         </ion-item-divider>
                         <ion-item-divider style="border-bottom:none">
-                            <ion-label>{{item.descripcion}}</ion-label>
+                            <ion-label>{{item.fecha}}</ion-label>
                         </ion-item-divider>
                     </ion-item-group>
                 </ion-item>
-                <ion-label>{{item.ubicacion}}</ion-label>
+                <ion-label>{{item.key}}</ion-label>
+            </ion-card>
+        </div>
+        <div id="item" *ngFor="let item of itemsLeidos">
+            <ion-card [routerLink]="'/tabs/evento/' + item.key" color="primary" name="element" style="margin:0px;margin-bottom: 10px">
+                <ion-item style="--inner-border-width:0">
+                    <img src="assets/pelota.png" style="width:128px;height: 128px" padding/>
+                    <ion-item-group >
+                        <ion-item-divider style="border-bottom:none">
+                            <ion-label><strong>{{item.leido}}</strong></ion-label>
+                        </ion-item-divider>
+                        <ion-item-divider style="border-bottom:none">
+                            <ion-label>{{item.fecha}}</ion-label>
+                        </ion-item-divider>
+                    </ion-item-group>
+                </ion-item>
+                <ion-label>{{item.key}}</ion-label>
             </ion-card>
         </div>
 </ion-content>
