@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { AuthenticateService } from '../services/authentication.service';
+import { FcmService } from '../services/fcm.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,8 @@ export class LoginPage implements OnInit {
   constructor(
     private router: Router,
     private authService: AuthenticateService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private fcm: FcmService
     ) { }
 
   ngOnInit() {
@@ -47,6 +49,7 @@ export class LoginPage implements OnInit {
     this.authService.loginUser(value)
     .then(res => {
       console.log(res)
+      this.fcm.getToken()
       this.errorMessage = ""
       this.router.navigateByUrl('tabs/inicio')
     }, err => {

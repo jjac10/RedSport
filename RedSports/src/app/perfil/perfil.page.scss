@@ -1,0 +1,41 @@
+.image {
+    height: 20%; 
+    width: 20%; 
+   border: 2px solid #fff;
+   border-radius: 50%;
+   box-shadow: 0 0 5px gray;
+   display: inline-block;
+
+}
+
+.circle-pic{
+   margin-left: 10%;
+   margin-top: 10%;
+   width:20%;
+   height:20%;
+   -webkit-border-radius: 50%;
+   border-radius: 50%;
+}
+
+.boton_superior{
+    margin-top: 10%;
+    margin-right: 5%;
+    float: right;
+    width: 50%;
+ }
+
+ .labelSeguidores {
+     margin-left: 10%;
+     font: bold 12px/30px Georgia, serif;
+ }
+ .valoresSuperiores{
+    font: 12px/30px Georgia, serif;
+}
+
+ .descripcion{
+     font-size: 5px;
+     clear: left;
+     margin-left: 5%;
+     color:#a7abd6;
+     font: italic bold 12px/30px Georgia, serif;
+ }

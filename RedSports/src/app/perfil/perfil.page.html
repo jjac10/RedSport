@@ -1,22 +1,145 @@
 <ion-header>
-    <ion-toolbar color="primary">
-      <ion-buttons slot="secondary">
-        <ion-button (click)="userProfile()">
-          <ion-icon slot="icon-only" name="contact"></ion-icon>
-        </ion-button>
-        <ion-button (click)="search()">
-          <ion-icon slot="icon-only" name="search"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-      <ion-buttons slot="primary">
-        <ion-button (click)="logout()">
-          <ion-icon slot="icon-only" name="exit"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-      <ion-title><strong>Mi perfil</strong></ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="secondary">
+      <ion-button (click)="userProfile()">
+        <ion-icon slot="icon-only" name="contact"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="primary">
+      <ion-button (click)="logout()">
+        <ion-icon slot="icon-only" name="exit"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title><strong>Perfil</strong></ion-title>
+  </ion-toolbar>
+</ion-header>
+
 
 <ion-content>
 
+  <div id="perfil">
+    <img class="circle-pic" src="http://autokadabra.ru/system/uploads/users/18/18340/small.png?1318432918" />
+    <ion-button class="boton_superior" href="#">Botoncico</ion-button>
+    <ion-label class="labelSeguidores">
+        Usuario: 
+    </ion-label>
+   <span class="valoresSuperiores">{{ usuarioPerfil.nombre }}</span>
+    <br>
+    <ion-label class="labelSeguidores">
+        Seguidores:
+    </ion-label>
+    <span class="valoresSuperiores">{{ usuarioPerfil.seguidores }}</span>
+  </div>
+  <ion-item>
+  <p class="descripcion">
+      {{ usuarioPerfil.descripcion }}
+    </p>
+  </ion-item>
+  <ion-list>
+    <ion-card>
+      <ion-item>
+        <ion-avatar item-start>
+          <img src="http://autokadabra.ru/system/uploads/users/18/18340/small.png?1318432918">
+        </ion-avatar>
+        <h2>Marty McFly</h2>
+        <p>November 5, 1955</p>
+      </ion-item>
+    
+      <img src="https://concepto.de/wp-content/uploads/2015/03/paisaje-2-e1549600987975.jpg">
+    
+      <ion-card-content>
+        <p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?! Whoa. This is heavy.</p>
+      </ion-card-content>
+    
+      <ion-row>
+        <ion-col>
+          <button ion-button icon-start clear small>
+            <ion-icon name="thumbs-up"></ion-icon>
+            <div>12 Likes</div>
+          </button>
+        </ion-col>
+        <ion-col>
+          <button ion-button icon-start clear small>
+            <ion-icon name="text"></ion-icon>
+            <div>4 Comments</div>
+          </button>
+        </ion-col>
+        <ion-col align-self-center text-center>
+          <ion-note>
+            11h ago
+          </ion-note>
+        </ion-col>
+      </ion-row> 
+    </ion-card>
+    <ion-card>
+        <ion-item>
+          <ion-avatar item-start>
+            <img src="http://autokadabra.ru/system/uploads/users/18/18340/small.png?1318432918">
+          </ion-avatar>
+          <h2>Marty McFly</h2>
+          <p>November 5, 1955</p>
+        </ion-item>
+      
+        <img src="https://concepto.de/wp-content/uploads/2015/03/paisaje-2-e1549600987975.jpg">
+      
+        <ion-card-content>
+          <p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?! Whoa. This is heavy.</p>
+        </ion-card-content>
+      
+        <ion-row>
+          <ion-col>
+            <button ion-button icon-start clear small>
+              <ion-icon name="thumbs-up"></ion-icon>
+              <div>12 Likes</div>
+            </button>
+          </ion-col>
+          <ion-col>
+            <button ion-button icon-start clear small>
+              <ion-icon name="text"></ion-icon>
+              <div>4 Comments</div>
+            </button>
+          </ion-col>
+          <ion-col align-self-center text-center>
+            <ion-note>
+              11h ago
+            </ion-note>
+          </ion-col>
+        </ion-row> 
+      </ion-card>
+      <ion-card>
+          <ion-item>
+            <ion-avatar item-start>
+              <img src="http://autokadabra.ru/system/uploads/users/18/18340/small.png?1318432918">
+            </ion-avatar>
+            <h2>Marty McFly</h2>
+            <p>November 5, 1955</p>
+          </ion-item>
+        
+          <img src="https://concepto.de/wp-content/uploads/2015/03/paisaje-2-e1549600987975.jpg">
+        
+          <ion-card-content>
+            <p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?! Whoa. This is heavy.</p>
+          </ion-card-content>
+        
+          <ion-row>
+            <ion-col>
+              <button ion-button icon-start clear small>
+                <ion-icon name="thumbs-up"></ion-icon>
+                <div>12 Likes</div>
+              </button>
+            </ion-col>
+            <ion-col>
+              <button ion-button icon-start clear small>
+                <ion-icon name="text"></ion-icon>
+                <div>4 Comments</div>
+              </button>
+            </ion-col>
+            <ion-col align-self-center text-center>
+              <ion-note>
+                11h ago
+              </ion-note>
+            </ion-col>
+          </ion-row> 
+        </ion-card>
+  </ion-list>
 </ion-content>
