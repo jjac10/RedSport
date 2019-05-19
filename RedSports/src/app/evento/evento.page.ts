@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AngularFireDatabase } from "@angular/fire/database";
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
@@ -11,6 +11,11 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./evento.page.scss'],
 })
 export class EventoPage implements OnInit {
+
+  latitud: number = 38.383638;
+  longitud: number = -0.5117858;
+  zoom: number = 8;
+
   ref
   public buttonColor: string = "secondary"
   public participar: string = "Participar"
