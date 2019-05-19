@@ -1,13 +1,14 @@
 import { Injectable } from "@angular/core";
-import * as firebase from 'firebase/app';
+import { AngularFireAuth } from "@angular/fire/auth";
 
 @Injectable()
 export class AuthenticateService {
-    constructor() {}
+
+    constructor(public firebase:AngularFireAuth) {}
 
     registerUser(value) {
         return new Promise<any>((resolve, reject) => {
-        firebase.auth().createUserWithEmailAndPassword(value.email, value.password)
+        this.firebase.auth.createUserWithEmailAndPassword(value.email, value.password)
         .then(
             res => resolve(res),
             err => reject(err))
@@ -16,7 +17,7 @@ export class AuthenticateService {
 
     loginUser(value) {
         return new Promise<any>((resolve, reject) => {
-        firebase.auth().signInWithEmailAndPassword(value.email, value.password)
+            this.firebase.auth.signInWithEmailAndPassword(value.email, value.password)
         .then(
             res => resolve(res),
             err => reject(err))
@@ -25,8 +26,8 @@ export class AuthenticateService {
 
     logoutUser() {
         return new Promise((resolve, reject) => {
-            if(firebase.auth().currentUser) {
-                firebase.auth().signOut()
+            if(this.firebase.auth.currentUser) {
+                this.firebase.auth.signOut()
                 .then(() => {
                     console.log("Ha cerrado sesión")
                     resolve()

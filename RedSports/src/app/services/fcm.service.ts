@@ -38,24 +38,26 @@ export class FcmService {
     return this.firebase.onNotificationOpen();
   }
 
-  enviarNotificacion(usuario,enlace,texto,estado,fecha){
+  enviarNotificacion(usuario,enlace,texto){
 
     this.afs.database.ref('users/').orderByChild('nick').equalTo(usuario).on('value', data => {
         data.forEach( item => {
             let user = item.val();
             user.key = item.key;
             console.log(user);
+            let node = this.afs.database.ref('notificaciones/')
+                let timestamp = Date.now()/1000.0;
+                node.push({
+                    "para": user.key,
+                    "enlace": enlace,
+                    "texto": texto,
+                    "leido": false,
+                    "fecha": parseInt(timestamp.toFixed())
+                })
         });
     })
 
-    /*let node = this.afs.database.ref('notificaciones/')
-    node.push({
-        "para":"a",
-        "enlace":"b",
-        "texto":"c",
-        "estado":"d",
-        "fecha":"e"
-    })*/
+    /**/
 }
 
   sendFCM(to,titulo,cuerpo){

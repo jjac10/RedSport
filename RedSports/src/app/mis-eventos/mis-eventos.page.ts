@@ -24,13 +24,11 @@ export class MisEventosPage implements OnInit {
         public fa:AngularFireAuth,
         private router: Router,
         private authService: AuthenticateService
-    )
-    {
-        this.obtenerDatos();
-        this.itemsFiltrado = this.items;
-    }
+    ) { }
 
     ngOnInit() {
+        this.obtenerDatos();
+        this.itemsFiltrado = this.items;
         /* Busqueda 
         let a = this.fbd.database.ref().child('eventos').orderByChild('titulo').equalTo('Petanca');
         a.once('value').then(data => {
