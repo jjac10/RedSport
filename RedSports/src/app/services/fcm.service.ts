@@ -3,15 +3,19 @@ import { Firebase } from '@ionic-native/firebase/ngx';
 import { Platform } from '@ionic/angular';
 import { AngularFireDatabase} from '@angular/fire/database';
 import { HttpClient} from '@angular/common/http';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 
 @Injectable()
 export class FcmService {
 
-  constructor(private firebase: Firebase,
-              private afs: AngularFireDatabase,
-              private platform: Platform,
-              private http:HttpClient) {}
+  constructor(
+    private firebase: Firebase,
+    private afs: AngularFireDatabase,
+    private platform: Platform,
+    private auth: AngularFireAuth,
+    private http:HttpClient
+  ) {}
 
   async getToken() {
     let token;
@@ -56,25 +60,38 @@ export class FcmService {
                 })
         });
     })
+  }
 
-    /**/
-}
+  enviarDatosUsuario(nombre, apellidos, nick, email, telefono, uid) {
+    let node = this.afs.database.ref('users/')
+    
+    node.update({ 
+      [uid]: {
+        "nombre": nombre,
+          "apellidos": apellidos,
+          "nick": nick,
+          "email": email,
+          "telefono": telefono
+      }
+    })
+  }
+
+
 
   sendFCM(to,titulo,cuerpo){
     this.http.post('https://fcm.googleapis.com/fcm/send',
-        {
-            "to" : to,
-            "data": {
-                "title":titulo,
-                "body":cuerpo
-            }
-        },
-        {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'key=AAAA05pJEUQ:APA91bEKJonwZnlzI-eIpiE3kIe8egH5Vgatf9AcN_hRCkXhOdrmoMGzbexwbGUnRTveE3b87VFK2Nh0dE99H07aUH4bD5vQ2eIFMRNXT87Skzl-kEy6J4yajokBmlrcqVWya1wRpVcn'
-            }
-        }).toPromise().then(data => console.log(data)).catch(err => console.log(err))
+    {
+      "to" : to,
+      "data": {
+        "title":titulo,
+        "body":cuerpo
+      }
+    },
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'key=AAAA05pJEUQ:APA91bEKJonwZnlzI-eIpiE3kIe8egH5Vgatf9AcN_hRCkXhOdrmoMGzbexwbGUnRTveE3b87VFK2Nh0dE99H07aUH4bD5vQ2eIFMRNXT87Skzl-kEy6J4yajokBmlrcqVWya1wRpVcn'
+      }
+    }).toPromise().then(data => console.log(data)).catch(err => console.log(err))
   }
-  
 }

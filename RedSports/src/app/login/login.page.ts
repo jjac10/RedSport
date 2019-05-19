@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { AuthenticateService } from '../authentication.service';
+import { AuthenticateService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -34,11 +34,11 @@ export class LoginPage implements OnInit {
 
   validation_messages = {
     'email': [
-      { type: 'required', message: 'Obligatorio introducir email' },
+      { type: 'required', message: 'Introduce tu email' },
       { type: 'pattern', message: 'Introduce un email existente' }
     ],
     'password': [
-      { type: 'required', message: 'Obligatorio introducir contraseña' },
+      { type: 'required', message: 'Introduce tu contraseña' },
       { type: 'pattern', message: 'La contraseña debe tener mínimo 6 caracteres' }
     ]
   }
@@ -61,7 +61,6 @@ export class LoginPage implements OnInit {
   }
 
   register() {
-    console.log("registroo")
     this.router.navigateByUrl('/register')
   }
 }

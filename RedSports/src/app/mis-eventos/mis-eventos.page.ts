@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { AuthenticateService } from '../authentication.service';
+import { AuthenticateService } from '../services/authentication.service';
 import { Router } from '@angular/router';
 
 @Component({

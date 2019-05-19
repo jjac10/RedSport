@@ -3,7 +3,7 @@ import { AngularFireDatabase } from "@angular/fire/database";
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { AuthenticateService } from '../authentication.service';
+import { AuthenticateService } from '../services/authentication.service';
 
 
 @Component({
