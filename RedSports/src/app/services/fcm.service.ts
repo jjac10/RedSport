@@ -67,6 +67,7 @@ export class FcmService {
                     "fecha": parseInt(timestamp.toFixed()),
                     "titulo": titulo
                 }).then(data => {
+                  if(user.token)
                     this.sendFCM(user.token,titulo,texto)
 
                 }).catch(err => {console.log(err)})

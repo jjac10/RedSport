@@ -23,7 +23,7 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-card>
+  <ion-card color="secondary">
     <ion-item>
       <ion-avatar item-start>
         <img src="../../assets/avatar/{{post.img}}.png">
@@ -37,9 +37,27 @@
     </ion-card-content>
   </ion-card>
 
+  <p><strong style="text-align: center">Respuestas</strong></p>
+
+  <div id="item" *ngFor="let resp of respuestas">
+    <ion-card color="primary">
+      <ion-item>
+        <ion-avatar item-start>
+          <img src="../../assets/avatar/{{resp.img}}.png">
+        </ion-avatar>
+        <h2 style="margin-left: 2%">{{resp.nick}}</h2>
+        <p style="margin-right: 5%; right: 0; position: absolute">{{resp.fecha}}</p>
+      </ion-item>
+  
+      <ion-card-content>
+        <p>{{resp.texto}}</p>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-      <ion-fab-button (click)="comment()">
-        <ion-icon name="text"></ion-icon>
-      </ion-fab-button>
-    </ion-fab>
+    <ion-fab-button (click)="comment()">
+      <ion-icon name="text"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

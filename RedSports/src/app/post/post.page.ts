@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FcmService } from '../services/fcm.service';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { FirebaseDatabase } from '@angular/fire';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { AlertController } from '@ionic/angular';
 
@@ -12,8 +11,8 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./post.page.scss'],
 })
 export class PostPage implements OnInit {
-  
-  post
+  private post
+  private respuestas = []
 
   constructor(
     private route: ActivatedRoute,
@@ -22,22 +21,40 @@ export class PostPage implements OnInit {
     private auth: AngularFireAuth,
     private fbd: AngularFireDatabase
   ){
-    this.fbd.database.ref('/posts/' + this.route.snapshot.paramMap.get('id'))
-    .on('value', postData => {
-      this.post = postData.val()
-      this.post.uid = postData.key
-      console.log(this.post)
-    })
+    // this.fbd.database.ref('/posts/' + this.route.snapshot.paramMap.get('id'))
+    // .on('value', postData => {
+    //   this.post = postData.val()
+    //   this.post.uid = postData.key
+
+    //   let indicesResp = Object.keys(this.post.respuestas)
+
+    //   indicesResp.forEach(e => {
+    //     this.respuestas.push(this.post.respuestas[e])
+    //   });
+
+    //   console.log(this.respuestas)
+    // })
   }
 
   ngOnInit() {}
 
   ionViewWillEnter() {
-    this.fbd.database.ref('/posts/' + this.route.snapshot.paramMap.get('id'))
+    this.respuestas = []
+
+    this.fbd.database.ref('posts/' + this.route.snapshot.paramMap.get('id'))
     .on('value', postData => {
       this.post = postData.val()
       this.post.uid = postData.key
-      console.log(this.post)
+
+      this.fbd.database.ref('respuestas/' + this.post.uid).on('value', data => {
+        data.forEach(resp => {
+          let item = resp.val()
+        
+          if(item) {
+            this.respuestas.push(item)
+          }
+        })
+      })
     })
   }
 
@@ -80,19 +97,20 @@ export class PostPage implements OnInit {
         data.img = user.avatar
         data.nick = user.nick
 
-        this.fbd.database.ref('posts/' + this.post.uid + '/respuestas').push(data)
+        this.fbd.database.ref('respuestas/' + this.post.uid).push(data)
         .then(resp => {
           this.fbd.database.ref('posts/' + this.post.uid).once('value', comment => {
             this.fbd.database.ref('posts/' + this.post.uid)
-            .update({'numComments': comment.val().numComments + 1})
+            .update({'numComments': comment.val().numComments + 1}).then( f => {
+              this.fcm.enviarNotificacion(
+                this.post.nick, 
+                '/tabs/post/' + this.post.uid, 
+                'Comentario', 
+                user.nombre + ' ' + user.apellidos + '(' + user.nick + ') te ha respondido a un comentario')
+              }
+            )
           })
         })
-
-        this.fcm.enviarNotificacion(
-          this.post.nick, 
-          '/tabs/post/' + this.post.uid, 
-          'Comentario', 
-          user.nombre + ' ' + user.apellidos + '(' + user.nick + ') te ha respondido a un comentario')
       }
     })
   }
