@@ -13,7 +13,7 @@ import { auth } from 'firebase';
 })
 export class InicioPage implements OnInit {
   private posts = []
-
+  ref
   constructor(
     private router: Router,
     private authService: AuthenticateService,
@@ -72,6 +72,19 @@ export class InicioPage implements OnInit {
     console.log(data.fecha)
 
     this.fbd.database.ref('posts/').push(data)
+  }
+
+  verPerfil(value) {
+    this.ref = this.fbd.database.ref('users/')
+    this.ref.on('value', usuarioPerfil => { 
+      usuarioPerfil.forEach(usu => {
+            let usuario = usu.val()
+            if(usuario.nick == value){
+              this.router.navigateByUrl('/tabs/perfil-publico/'+usu.key)
+            }
+        })
+      });
+
   }
 
   userProfile() {

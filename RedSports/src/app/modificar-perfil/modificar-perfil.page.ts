@@ -67,7 +67,7 @@ export class ModificarPerfilPage implements OnInit {
   }
 
   iniciarValores(){
-    this.idUsuario= "V6Aach2YNlMX9lfRfoaBLOgJAEF2"//this.fbd.database.app.auth().currentUser.uid
+    this.idUsuario= this.fbd.database.app.auth().currentUser.uid
     this.ref = this.fbd.database.ref('users/'+this.idUsuario)
     this.ref.on('value', usuarioPerfil => { 
       if(usuarioPerfil.exists()) {

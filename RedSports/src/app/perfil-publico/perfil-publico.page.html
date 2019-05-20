@@ -1,0 +1,76 @@
+<ion-header>
+    <ion-toolbar color="primary">
+      <ion-buttons slot="secondary">
+        <ion-button (click)="userProfile()">
+          <ion-icon slot="icon-only" name="contact"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-buttons slot="primary">
+        <ion-button (click)="logout()">
+          <ion-icon slot="icon-only" name="exit"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title><strong>Perfil</strong></ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  
+  <ion-content>
+  
+    <div id="perfil">
+      <img class="circle-pic" src="../../assets/avatar/{{usuarioPerfil.avatar}}.png" />
+      <div class="boton_superior" *ngIf="miPerfil">
+        <ion-button class="boton_superior" (click)="editarPerfil()">Editar</ion-button>
+      </div>
+      <div class="boton_superior" *ngIf="!miPerfil">
+        <ion-button class="boton_superior" (click)="seguir()">Seguir+</ion-button>
+      </div>  
+      <ion-label class="labelSeguidores">
+          Usuario: 
+      </ion-label>
+     <span class="valoresSuperiores">{{ usuarioPerfil.nick }}</span>
+      <br>
+      <ion-label class="labelSeguidores">
+          Seguidores:
+      </ion-label>
+      <span class="valoresSuperiores">{{ usuarioPerfil.seguidores }}</span>
+    </div>
+    <ion-item>
+    <p class="descripcion">
+        {{ usuarioPerfil.descripcion }}
+      </p>
+    </ion-item>
+    <ion-list>
+      <div id="item" *ngFor="let item of itemsFiltrado">
+        <ion-card>
+          <ion-item>
+            <ion-avatar item-start>
+              <img src="../../assets/avatar/{{item.img}}.png">
+            </ion-avatar>
+            <h2 style="margin-left: 2%">{{item.nick}}</h2>
+            <p style="margin-right: 5%; right: 0; position: absolute">{{item.fecha}}</p>
+          </ion-item>
+        
+          <ion-card-content>
+            <p>{{item.texto}}</p>
+          </ion-card-content>
+        
+          <ion-row>
+            <ion-col>
+              <button ion-button large>
+                <ion-icon name="thumbs-up"></ion-icon>
+                <div>{{item.likes}} Likes</div>
+              </button>
+            </ion-col>
+    
+            <ion-col>
+              <button ion-button large>
+                <ion-icon name="text"></ion-icon>
+                <div>{{item.numComments}} Comments</div>
+              </button>
+            </ion-col>
+          </ion-row>
+        </ion-card>
+      </div>
+    </ion-list>
+  </ion-content>
