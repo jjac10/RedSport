@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
 })
 export class CrearEventoPage implements OnInit {
 
+  public miUser: string
+
   constructor(
     public fbd:AngularFireDatabase,
     private router: Router,
@@ -44,13 +46,14 @@ export class CrearEventoPage implements OnInit {
       return;
     }
 
-    //CAMBIAR POR ID CUANDO ESTE LOGIN
+    this.miUser = this.fbd.database.app.auth().currentUser.uid
+
     this.fbd.database.ref('eventos/').push({
       creador: {
-        "gb8KcNeo7dZXUyhWmGhmHAYjosu3" : true
+        [this.miUser] : true
       },
       participantes: {
-        "gb8KcNeo7dZXUyhWmGhmHAYjosu3" : true
+        [this.miUser] : true
       },
       titulo: nombreEvento,
       descripcion: descripcionEvento,
