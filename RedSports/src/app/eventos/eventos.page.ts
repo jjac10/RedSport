@@ -32,7 +32,9 @@ export class EventosPage implements OnInit {
     private router: Router,
     private authService: AuthenticateService
   ) 
-  {
+  {}
+
+  ionViewDidEnter(){
     this.obtenerDatos()
     this.itemsFiltrados = this.items
   }
@@ -60,7 +62,6 @@ export class EventosPage implements OnInit {
 
   obtenerDatos(){
     this.items = []
-       
     console.log('logged in')
     this.ref = this.fbd.database.ref('eventos/')
     this.ref.on('value', eventos => {

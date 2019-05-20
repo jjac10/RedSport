@@ -22,13 +22,13 @@
         <div id="item" *ngFor="let item1 of itemsPorLeer">
             <ion-card  color="primary" name="element"  style="margin:0px;margin-bottom: 10px">
                 <ion-item style="--inner-border-width:0">
-                    <ion-icon name="eye" (click)="marcarVisto(item1.key)"></ion-icon>
+                    <ion-icon name="eye" (click)="marcarVisto(item1.key)" style="width: 25px"></ion-icon>
                     <ion-item-group (click)="redirect(item1.enlace)" style="width: 100%">
                         <ion-item-divider style="border-bottom:none">
                             <ion-label><strong>{{item1.titulo}} {{item1.time}}</strong></ion-label>
                         </ion-item-divider>
                         <ion-item-divider style="border-bottom:none">
-                            <ion-label>{{item1.texto}}</ion-label>
+                            <ion-label style="white-space: normal;">{{item1.texto}}</ion-label>
                         </ion-item-divider>
                     </ion-item-group>
                 </ion-item>
