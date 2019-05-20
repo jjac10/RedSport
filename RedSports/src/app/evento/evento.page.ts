@@ -6,6 +6,7 @@ import { AlertController } from '@ionic/angular';
 import { AuthenticateService } from '../services/authentication.service';
 import { FcmService } from '../services/fcm.service';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { debug } from 'util';
 
 
 @Component({
@@ -89,11 +90,14 @@ export class EventoPage implements OnInit {
       this.ref = this.fbd.database.ref('eventos/'+this.idEvento)
       this.ref.on('value', evento => { 
         if(evento.exists()) {
-          this.ref.child('participantes').update({ [this.user]: true })
-          this.ref = this.fbd.database.ref('users/'+this.user+'/eventos/')
-          this.ref.child('participa').update({ [this.idEvento]: true })
-          this.participar = "Desapuntarse"
-          this.apuntarse()
+            this.ref.child('participantes').update({ [this.user]: true }).then(data => {
+                this.ref = this.fbd.database.ref('users/'+this.user+'/eventos/')
+                this.ref.child('participa').update({ [this.idEvento]: true }).then( data => {
+                    this.notificacionApuntarse()
+                    this.participar = "Desapuntarse"
+                    this.apuntarse()
+                })
+            })     
         }
     })} else {
       this.fbd.database.ref('users/'+this.user+'/eventos/participa/'+this.idEvento).remove()
@@ -122,10 +126,10 @@ export class EventoPage implements OnInit {
     //console.log(this.participar)
     if(this.participar == 'Desapuntarse') {
       this.buttonColor = "danger"
-      this.participar = "Desapuntar"
+      this.participar = "Desapuntarse"
     } else {
       this.buttonColor = "secondary"
-      this.participar = "Participar"
+      this.participar = "Participarse"
     }
   }
 
@@ -169,28 +173,51 @@ export class EventoPage implements OnInit {
     })
   }
 
-  invitarUsuario(data: any) {
-
-    if(data.usuario && data.usuario!=''){
-
-        let node = this.fbd.database.ref('eventos/'+this.idEvento+"/creador/")
-        node.on('value', data => {
-            data.forEach(elemento => {
-                if(elemento.key){
-                    let node = this.fbd.database.ref('users/'+elemento.key+"/nick/")
-                    node.on('value', data => {
+  notificacionApuntarse(){
+      this.fbd.database.ref('eventos/'+this.idEvento+'/creador/').once('value',data => {
+        let idCreador = Object.keys(data.val())[0]
+        console.log(idCreador)
+        if(idCreador){
+            this.fbd.database.ref('users/'+idCreador+"/nick").once('value', data => {
+                console.log(data)
+                let nickDueno = data.val();
+                if(nickDueno){
+                    console.log(this.user)
+                    this.fbd.database.ref('users/'+this.user+'/nick').once('value', data => {
                         console.log(data)
+                        let nickMio = data.val()
+                        if(nickMio) {
+                            this.fcm.enviarNotificacion(nickDueno,'/tabs/evento/'+this.idEvento,'Aviso',`El usuario ${nickMio} se ha apuntado a un evento tuyo`)
+                        }
+                   })
+                }
+            })
+        }
+      })
+
+  }
+
+  invitarUsuario(data: any) {
+    if(data.usuario && data.usuario!=''){
+        let node = this.fbd.database.ref('eventos/'+this.idEvento+"/creador/")
+        node.once('value', data1 => {
+            data1.forEach(elemento => {
+                if(elemento.key){
+                    let node2 = this.fbd.database.ref('users/'+elemento.key+"/nick/")
+                    node2.once('value', data2 => {
+                        let nick = data2.val()
+                        if(nick){
+                            this.fcm.enviarNotificacion(
+                                data.usuario,
+                                '/tabs/evento/'+this.idEvento,
+                                'Invitacion',
+                                'El usuario '+nick+' te ha invitado a un evento'
+                            )
+                        }
                     })
                 }
             });
-        })
-
-        this.fcm.enviarNotificacion(
-            data.usuario,
-            '/tabs/evento/'+this.idEvento,
-            'Invitacion',
-            ''
-        )
+        })        
     }
        
   }
