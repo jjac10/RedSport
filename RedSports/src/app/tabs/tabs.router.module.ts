@@ -79,6 +79,15 @@ const routes: Routes = [
           }
         ]
       },
+      { 
+        path: 'modificar-perfil',
+        children: [
+          {
+            path: '', 
+            loadChildren: '../modificar-perfil/modificar-perfil.module#ModificarPerfilPageModule' 
+          }
+        ]
+      },
     ]
   },
   {
