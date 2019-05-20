@@ -23,6 +23,9 @@ export class InicioPage implements OnInit {
   ) { }
 
   ngOnInit() {
+  }
+
+  ionViewDidEnter(){
     this.fbd.database.ref('posts/').orderByChild('fecha').on('value', data => {
       data.forEach(post => {
         this.posts.push(post.val())
@@ -60,18 +63,21 @@ export class InicioPage implements OnInit {
   }
 
   crearComentario(data: any) {
-    var user = this.fbd.database.ref('users/' + this.fbd.database.app.auth().currentUser.uid)
-    .on('value', usuario => {
-      console.log(usuario)
+
+    this.fbd.database.ref('users/' + this.auth.auth.currentUser.uid)
+    .once('value', usuario => {
+      let user = usuario.val()
+      
+      if(user){
+        data.fecha = this.unixTimeToDateTime(Date.now())
+        data.img = user.avatar
+        data.likes = 0
+        data.nick = user.nick
+        data.numComments = 0
+
+        this.fbd.database.ref('posts/').push(data)
+      }
     })
-
-    console.log(user)
-
-    data.user = this.fbd.database.app.auth().currentUser.uid
-    data.fecha = new Date().toLocaleString().replace(",","")
-    console.log(data.fecha)
-
-    this.fbd.database.ref('posts/').push(data)
   }
 
   userProfile() {
@@ -93,4 +99,15 @@ export class InicioPage implements OnInit {
     })
   }
 
+  unixTimeToDateTime(unix){
+    var date = new Date();
+    var year = date.getFullYear();
+    var month = date.getMonth()+1;
+    var day = date.getDate();
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var seconds = date.getSeconds();
+
+    return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+  }
 }
