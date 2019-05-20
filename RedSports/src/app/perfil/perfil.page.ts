@@ -12,6 +12,8 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class PerfilPage implements OnInit {
   ref
+  items = [];
+  itemsFiltrado = [];
   usuarioPerfil: any = {}
   public user: string = this.route.snapshot.paramMap.get('id')
   public miUser: string 
@@ -26,6 +28,11 @@ export class PerfilPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.ponerDatos()
+    this.obtenerEventos()
+  }
+
+  ponerDatos(){
     this.miUser= "V6Aach2YNlMX9lfRfoaBLOgJAEF2"//this.fbd.database.app.auth().currentUser.uid
     this.idUsuario = this.route.snapshot.paramMap.get('id');
     if (this.idUsuario == null || this.idUsuario == this.miUser){
@@ -48,6 +55,22 @@ export class PerfilPage implements OnInit {
         this.usuarioPerfil.seguidores = 3
       }
     });
+  }
+
+  obtenerEventos() {
+    this.ref = this.fbd.database.ref('users/' + this.idUsuario + '/eventos/creados/')
+    this.ref.on('value', eventosUsuarios => {
+        eventosUsuarios.forEach(eventoUsuario => {
+            this.fbd.database.ref('eventos/' + eventoUsuario.key + '/').on('value', infoEvento => {
+                let evento = infoEvento.val()
+                if(evento){
+                    evento.key = eventoUsuario.key
+                    this.items.push(evento)
+                }
+            })
+        });
+        this.itemsFiltrado = this.items;
+    })
   }
 
   userProfile() {
