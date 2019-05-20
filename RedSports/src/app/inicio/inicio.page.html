@@ -29,18 +29,18 @@
         </ion-item>
       
         <ion-card-content>
-          <p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?! Whoa. This is heavy.</p>
+          <p>{{post.texto}}</p>
         </ion-card-content>
       
         <ion-row>
-          <ion-col style="text-align: center">
+          <ion-col>
             <button ion-button large>
               <ion-icon name="thumbs-up"></ion-icon>
               <div>{{post.likes}} Likes</div>
             </button>
           </ion-col>
   
-          <ion-col style="text-align: center">
+          <ion-col>
             <button ion-button large>
               <ion-icon name="text"></ion-icon>
               <div>{{post.numComments}} Comments</div>
@@ -51,7 +51,7 @@
     </div>
   
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-        <ion-fab-button [routerLink]="'/tabs/crear-post'">
+        <ion-fab-button (click)="doPrompt()">
           <ion-icon name="add"></ion-icon>
         </ion-fab-button>
       </ion-fab>
