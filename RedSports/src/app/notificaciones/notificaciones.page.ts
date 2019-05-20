@@ -68,14 +68,32 @@ export class NotificacionesPage implements OnInit {
                 let notice = noticia.val();
                 if(notice){
                     notice.key = noticia.key
-                    if(notice.leido)
+                    notice.time = this.unixTimeToDateTime(notice.fecha)
+                    if(notice.leido){
                         this.itemsLeidos.push(notice)
-                    else 
+                        this.itemsLeidos = this.itemsLeidos.sort((a, b) => b.fecha - a.fecha);
+                        
+                    }
+                    else{
                         this.itemsPorLeer.push(notice)
+                        this.itemsPorLeer = this.itemsPorLeer.sort((a, b) => b.fecha - a.fecha);
+                    }
                 }               
             })                               
         })
-        
     }
+
+    unixTimeToDateTime(unix){
+        var date = new Date(unix*1000);
+        var year = date.getFullYear();
+        var month = date.getMonth()+1;
+        var day = date.getDate();
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+        var seconds = date.getSeconds();
+
+        return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+    }
+
 }
 

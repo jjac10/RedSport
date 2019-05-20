@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { AuthenticateService } from '../services/authentication.service';
+import { FcmService } from '../services/fcm.service';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 
 @Component({
@@ -25,7 +27,7 @@ export class EventoPage implements OnInit {
   evento: any = {}
 
   //Cambiar cuando este el login
-  public user: string = "gb8KcNeo7dZXUyhWmGhmHAYjosu3"
+  public user: string = ""
   public idEvento: string
   
   imagen: string;
@@ -35,9 +37,12 @@ export class EventoPage implements OnInit {
     private route: ActivatedRoute, 
     public alertCtrl: AlertController,
     public fbd:AngularFireDatabase,
-    private authService: AuthenticateService
+    public auth:AngularFireAuth,
+    private authService: AuthenticateService,
+    public fcm:FcmService
   )
   { 
+    this.user = this.auth.auth.currentUser.uid;
     this.idEvento = this.route.snapshot.paramMap.get('id');
     this.imagen  = this.route.snapshot.paramMap.get('id');
     this.verEvento()
@@ -165,22 +170,29 @@ export class EventoPage implements OnInit {
   }
 
   invitarUsuario(data: any) {
-    var key= this.fbd.database.ref('notificaciones/').push().key
-    this.ref = this.fbd.database.ref('users/')
-      this.ref.on('value', usuarios => {
-        usuarios.forEach(usuario => {
-          if(usuario.val().nombre == data.usuario) {
-            this.ref = this.fbd.database.ref('notificaciones/'+key)
-            this.ref.update({ 
-              texto: usuario.val().nombre+" te ha invitado a un evento",
-              leido: false,
-              evento: this.idEvento
-            })
-            this.fbd.database.ref('users/'+usuario.key+"/notificaciones/").update({ [key]: true })
-            this.showAlert()
-          }
-      });
-    })
+
+    if(data.usuario && data.usuario!=''){
+
+        let node = this.fbd.database.ref('eventos/'+this.idEvento+"/creador/")
+        node.on('value', data => {
+            data.forEach(elemento => {
+                if(elemento.key){
+                    let node = this.fbd.database.ref('users/'+elemento.key+"/nick/")
+                    node.on('value', data => {
+                        console.log(data)
+                    })
+                }
+            });
+        })
+
+        this.fcm.enviarNotificacion(
+            data.usuario,
+            '/tabs/evento/'+this.idEvento,
+            'Invitacion',
+            ''
+        )
+    }
+       
   }
   
   showAlert() {

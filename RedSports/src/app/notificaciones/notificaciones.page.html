@@ -25,7 +25,7 @@
                     <ion-icon name="eye" (click)="marcarVisto(item1.key)"></ion-icon>
                     <ion-item-group (click)="redirect(item1.enlace)" style="width: 100%">
                         <ion-item-divider style="border-bottom:none">
-                            <ion-label><strong>{{item1.titulo}}</strong></ion-label>
+                            <ion-label><strong>{{item1.titulo}} {{item1.time}}</strong></ion-label>
                         </ion-item-divider>
                         <ion-item-divider style="border-bottom:none">
                             <ion-label>{{item1.texto}}</ion-label>
@@ -36,11 +36,11 @@
         </div>
         <h5>Leidos</h5>
         <div id="item" *ngFor="let item2 of itemsLeidos">
-            <ion-card [routerLink]="item2.enlace" color="primary" name="element" style="margin:0px;margin-bottom: 10px">
-                <ion-item style="--inner-border-width:0">
-                    <ion-item-group >
+            <ion-card color="primary" name="element" style="margin:0px;margin-bottom: 10px">
+                <ion-item style="--inner-border-width:0" >
+                    <ion-item-group (click)="redirect(item2.enlace)" style="width: 100%" >
                         <ion-item-divider style="border-bottom:none">
-                            <ion-label><strong>{{item2.titulo}}</strong></ion-label>
+                            <ion-label><strong>{{item2.titulo}} {{item2.time}}</strong></ion-label>
                         </ion-item-divider>
                         <ion-item-divider style="border-bottom:none">
                             <ion-label>{{item2.texto}}</ion-label>
