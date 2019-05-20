@@ -27,8 +27,13 @@ export class InicioPage implements OnInit {
 
   ionViewDidEnter(){
     this.fbd.database.ref('posts/').orderByChild('fecha').on('value', data => {
+      this.posts = []
+      
       data.forEach(post => {
-        this.posts.push(post.val())
+        let comment = post.val()
+        comment.uid = post.ref.key
+        
+        this.posts.push(comment)
       })
     })
   }
@@ -63,11 +68,10 @@ export class InicioPage implements OnInit {
   }
 
   crearComentario(data: any) {
-
     this.fbd.database.ref('users/' + this.auth.auth.currentUser.uid)
     .once('value', usuario => {
       let user = usuario.val()
-      
+
       if(user){
         data.fecha = this.unixTimeToDateTime(Date.now())
         data.img = user.avatar
@@ -77,6 +81,12 @@ export class InicioPage implements OnInit {
 
         this.fbd.database.ref('posts/').push(data)
       }
+    })
+  }
+
+  like(post) {
+    this.fbd.database.ref('posts/' + post.uid).once('value', comment => {
+      this.fbd.database.ref('posts/' + post.uid).update({'likes': comment.val().likes + 1})
     })
   }
 
