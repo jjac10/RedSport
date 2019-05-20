@@ -1,0 +1,92 @@
+<ion-header>
+    <ion-toolbar color="primary">
+      <ion-buttons slot="secondary">
+        <ion-button (click)="userProfile()">
+          <ion-icon slot="icon-only" name="contact"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-buttons slot="primary">
+        <ion-button (click)="logout()">
+          <ion-icon slot="icon-only" name="exit"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title><strong>Perfil</strong></ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  
+  <ion-content>
+      <div class="user-photo" padding-top>
+          <ion-avatar>
+            <img src="http://autokadabra.ru/system/uploads/users/18/18340/small.png?1318432918">
+          </ion-avatar>
+        </div>
+        <div class="textUsuario"> <strong>Usuario: </strong>{{ usuarioPerfil.nick }} </div>
+        <ion-grid class="contenido">
+          <form class="form" [formGroup]="validations_form" (ngSubmit)="editarPerfil(validations_form.value)">
+            <ion-row justify-content-center>
+              <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">    
+                <div padding>
+                  <!--Descripcion-->
+                  <ion-item>
+                    <ion-textarea value="{{ usuarioPerfil.descripcion }}"  type="text" formControlName="descripcion" class="form-control" placeholder="Descripcion"></ion-textarea>
+                  </ion-item>
+
+                  <!--EMAIL-->
+                  <ion-item>
+                    <ion-input value="{{ usuarioPerfil.email }}" type="text" formControlName="email" class="form-control" required placeholder="Email"></ion-input>
+                  </ion-item>
+                  <div class="validation-errors">
+                    <ng-container *ngFor="let validation of validation_messages.email">
+                      <div class="error-message" *ngIf="validations_form.get('email').hasError(validation.type) && (validations_form.get('email').dirty || validations_form.get('email').touched)">
+                        {{ validation.message }}
+                      </div>
+                    </ng-container>
+                  </div>
+    
+                <!--NOMBRE-->
+                <ion-item>
+                  <ion-input value="{{ usuarioPerfil.nombre }}"  type="text" formControlName="nombre" class="form-control" required placeholder="Nombre"></ion-input>
+                </ion-item>
+                <div class="validation-errors">
+                  <ng-container *ngFor="let validation of validation_messages.nombre">
+                    <div class="error-message" *ngIf="validations_form.get('nombre').hasError(validation.type) && (validations_form.get('nombre').dirty || validations_form.get('nombre').touched)">
+                      {{ validation.message }}
+                    </div>
+                  </ng-container>
+                </div>
+    
+                <!--APELLIDOS-->
+                <ion-item>
+                  <ion-input value="{{ usuarioPerfil.apellidos }}" type="text" formControlName="apellidos" class="form-control" required placeholder="Apellidos"></ion-input>
+                </ion-item>
+                <div class="validation-errors">
+                  <ng-container *ngFor="let validation of validation_messages.apellidos">
+                    <div class="error-message" *ngIf="validations_form.get('apellidos').hasError(validation.type) && (validations_form.get('apellidos').dirty || validations_form.get('apellidos').touched)">
+                      {{ validation.message }}
+                    </div>
+                  </ng-container>
+                </div>
+    
+                <!--TELEFONO-->
+                <ion-item>
+                  <ion-input value="{{ usuarioPerfil.telefono }}" type="text" formControlName="telefono" class="form-control" required placeholder="Teléfono"></ion-input>
+                </ion-item>
+                <div class="validation-errors">
+                  <ng-container *ngFor="let validation of validation_messages.telefono">
+                    <div class="error-message" *ngIf="validations_form.get('telefono').hasError(validation.type) && (validations_form.get('telefono').dirty || validations_form.get('telefono').touched)">
+                      {{ validation.message }}
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+    
+                <!--BOTONES-->
+                <div padding>
+                  <ion-button size="large" color="success" expand="block" class="submit-btn" type="submit" [disabled]="!validations_form.valid">Guardar</ion-button>
+                </div>
+              </ion-col>
+            </ion-row>
+          </form>
+        </ion-grid>
+</ion-content>
