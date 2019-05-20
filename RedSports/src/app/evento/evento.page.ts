@@ -88,7 +88,7 @@ export class EventoPage implements OnInit {
   apuntarseEnEvento() {
     if(this.subscritoAEvento == false) {
       this.ref = this.fbd.database.ref('eventos/'+this.idEvento)
-      this.ref.on('value', evento => { 
+      this.ref.once('value', evento => { 
         if(evento.exists()) {
             this.ref.child('participantes').update({ [this.user]: true }).then(data => {
                 this.ref = this.fbd.database.ref('users/'+this.user+'/eventos/')
