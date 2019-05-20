@@ -88,12 +88,12 @@ const routes: Routes = [
           }
         ]
       },
-      { 
-        path: 'perfil-publico/:id',
+      {
+        path: 'post/:id',
         children: [
           {
-            path: '', 
-            loadChildren: '../perfil-publico/perfil-publico.module#PerfilPublicoPageModule'
+            path: '',
+            loadChildren: '../post/post.module#PostPageModule'
           }
         ]
       },

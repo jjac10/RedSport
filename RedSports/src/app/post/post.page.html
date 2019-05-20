@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/inicio"></ion-back-button>
+    </ion-buttons>
+    
+    <ion-buttons slot="secondary">
+      <ion-button (click)="userProfile()">
+        <ion-icon slot="icon-only" name="contact"></ion-icon>
+      </ion-button>
+      <ion-button (click)="search()">
+        <ion-icon slot="icon-only" name="search"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="primary">
+      <ion-button (click)="logout()">
+        <ion-icon slot="icon-only" name="exit"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    
+    <ion-title><strong>Comentarios</strong></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card>
+    <ion-item>
+      <ion-avatar item-start>
+        <img src="../../assets/avatar/{{post.img}}.png">
+      </ion-avatar>
+      <h2 style="margin-left: 2%">{{post.nick}}</h2>
+      <p style="margin-right: 5%; right: 0; position: absolute">{{post.fecha}}</p>
+    </ion-item>
+
+    <ion-card-content>
+      <p>{{post.texto}}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button (click)="comment()">
+        <ion-icon name="text"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+</ion-content>

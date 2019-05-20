@@ -5,6 +5,7 @@ import { AngularFireDatabase } from '@angular/fire/database';
 import { AlertController } from '@ionic/angular';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase';
+import { FcmService } from '../services/fcm.service';
 
 @Component({
   selector: 'app-inicio',
@@ -13,13 +14,14 @@ import { auth } from 'firebase';
 })
 export class InicioPage implements OnInit {
   private posts = []
-  ref
+
   constructor(
     private router: Router,
     private authService: AuthenticateService,
     private alertCtrl: AlertController,
     private auth: AngularFireAuth,
-    private fbd: AngularFireDatabase
+    private fbd: AngularFireDatabase,
+    private fcm: FcmService
   ) { }
 
   ngOnInit() {
@@ -73,7 +75,7 @@ export class InicioPage implements OnInit {
       let user = usuario.val()
 
       if(user){
-        data.fecha = this.unixTimeToDateTime(Date.now())
+        data.fecha = this.fcm.unixTimeToDateTime(Date.now())
         data.img = user.avatar
         data.likes = 0
         data.nick = user.nick
@@ -90,17 +92,8 @@ export class InicioPage implements OnInit {
     })
   }
 
-  verPerfil(value) {
-    this.ref = this.fbd.database.ref('users/')
-    this.ref.on('value', usuarioPerfil => { 
-      usuarioPerfil.forEach(usu => {
-            let usuario = usu.val()
-            if(usuario.nick == value){
-              this.router.navigateByUrl('/tabs/perfil-publico/'+usu.key)
-            }
-        })
-      });
-
+  comments(post) {
+    this.router.navigateByUrl('/tabs/post/' + post.uid)  
   }
 
   userProfile() {
@@ -120,17 +113,5 @@ export class InicioPage implements OnInit {
     .catch(error => {
       console.log(error)
     })
-  }
-
-  unixTimeToDateTime(unix){
-    var date = new Date();
-    var year = date.getFullYear();
-    var month = date.getMonth()+1;
-    var day = date.getDate();
-    var hours = date.getHours();
-    var minutes = date.getMinutes();
-    var seconds = date.getSeconds();
-
-    return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
   }
 }

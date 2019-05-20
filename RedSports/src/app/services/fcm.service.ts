@@ -90,4 +90,16 @@ export class FcmService {
       }
     }).toPromise().then(data => console.log(data)).catch(err => console.log(err))
   }
+
+  unixTimeToDateTime(unix){
+    var date = new Date();
+    var year = date.getFullYear();
+    var month = date.getMonth()+1;
+    var day = date.getDate();
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var seconds = date.getSeconds();
+
+    return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+  }
 }
