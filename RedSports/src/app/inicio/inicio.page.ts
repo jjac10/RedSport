@@ -13,7 +13,7 @@ import { auth } from 'firebase';
 })
 export class InicioPage implements OnInit {
   private posts = []
-
+  ref
   constructor(
     private router: Router,
     private authService: AuthenticateService,
@@ -88,6 +88,19 @@ export class InicioPage implements OnInit {
     this.fbd.database.ref('posts/' + post.uid).once('value', comment => {
       this.fbd.database.ref('posts/' + post.uid).update({'likes': comment.val().likes + 1})
     })
+  }
+
+  verPerfil(value) {
+    this.ref = this.fbd.database.ref('users/')
+    this.ref.on('value', usuarioPerfil => { 
+      usuarioPerfil.forEach(usu => {
+            let usuario = usu.val()
+            if(usuario.nick == value){
+              this.router.navigateByUrl('/tabs/perfil-publico/'+usu.key)
+            }
+        })
+      });
+
   }
 
   userProfile() {

@@ -20,13 +20,14 @@
   <ion-content padding>
     <div id="item" *ngFor="let post of posts">
       <ion-card>
-        <ion-item>
+        <ion-item (click)="verPerfil(post.nick)"> 
           <ion-avatar item-start>
             <img src="../../assets/avatar/{{post.img}}.png">
           </ion-avatar>
           <h2 style="margin-left: 2%">{{post.nick}}</h2>
           <p style="margin-right: 5%; right: 0; position: absolute">{{post.fecha}}</p>
         </ion-item>
+
       
         <ion-card-content>
           <p>{{post.texto}}</p>

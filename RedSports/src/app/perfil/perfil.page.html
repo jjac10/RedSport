@@ -18,7 +18,7 @@
 <ion-content>
 
   <div id="perfil">
-    <img class="circle-pic" src="http://autokadabra.ru/system/uploads/users/18/18340/small.png?1318432918" />
+    <img class="circle-pic" src="../../assets/avatar/{{usuarioPerfil.avatar}}.png" />
     <div class="boton_superior" *ngIf="miPerfil">
       <ion-button class="boton_superior" (click)="editarPerfil()">Editar</ion-button>
     </div>
@@ -45,34 +45,31 @@
       <ion-card>
         <ion-item>
           <ion-avatar item-start>
-            <img src="http://autokadabra.ru/system/uploads/users/18/18340/small.png?1318432918">
-          </ion-avatar>          
-          <p class="eventoTitulo">{{ item.titulo }}</p>
-          <p class="eventoNick">{{usuarioPerfil.nick }}</p> 
-        </ion-item>      
+            <img src="../../assets/avatar/{{item.img}}.png">
+          </ion-avatar>
+          <h2 style="margin-left: 2%">{{item.nick}}</h2>
+          <p style="margin-right: 5%; right: 0; position: absolute">{{item.fecha}}</p>
+        </ion-item>
+      
         <ion-card-content>
-          <p>{{ item.descripcion }}</p>
+          <p>{{item.texto}}</p>
         </ion-card-content>
       
         <ion-row>
           <ion-col>
-            <button ion-button icon-start clear small>
+            <button ion-button large>
               <ion-icon name="thumbs-up"></ion-icon>
-              <div>12 Likes</div>
+              <div>{{item.likes}} Likes</div>
             </button>
           </ion-col>
+  
           <ion-col>
-            <button ion-button icon-start clear small>
+            <button ion-button large>
               <ion-icon name="text"></ion-icon>
-              <div>4 Comments</div>
+              <div>{{item.numComments}} Comments</div>
             </button>
           </ion-col>
-          <ion-col align-self-center text-center>
-            <ion-note>
-              11h ago
-            </ion-note>
-          </ion-col>
-        </ion-row> 
+        </ion-row>
       </ion-card>
     </div>
   </ion-list>

@@ -6,11 +6,11 @@ import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
-  selector: 'app-perfil',
-  templateUrl: './perfil.page.html',
-  styleUrls: ['./perfil.page.scss'],
+  selector: 'app-perfil-publico',
+  templateUrl: './perfil-publico.page.html',
+  styleUrls: ['./perfil-publico.page.scss'],
 })
-export class PerfilPage implements OnInit {
+export class PerfilPublicoPage implements OnInit {
   ref
   items = [];
   itemsFiltrado = [];
@@ -33,11 +33,15 @@ export class PerfilPage implements OnInit {
   }
 
   ponerDatos(){
-    this.miUser= this.fbd.database.app.auth().currentUser.uid
-    this.ref = this.fbd.database.ref('users/'+this.miUser)
-    this.miPerfil=true
-    this.idUsuario = this.miUser
-
+    this.miUser= "V6Aach2YNlMX9lfRfoaBLOgJAEF2"//this.fbd.database.app.auth().currentUser.uid
+    this.idUsuario = this.route.snapshot.paramMap.get('id');
+    if (this.idUsuario == null || this.idUsuario == this.miUser){
+      this.ref = this.fbd.database.ref('users/'+this.miUser)
+      this.miPerfil=true
+      this.idUsuario = this.miUser
+    }else{
+      this.ref = this.fbd.database.ref('users/'+this.idUsuario)
+    }
     this.ref.on('value', usuarioPerfil => { 
       if(usuarioPerfil.exists()) {
         this.usuarioPerfil.user= this.idUsuario
@@ -101,5 +105,6 @@ export class PerfilPage implements OnInit {
       console.log(error)
     })
   }
+
 
 }
