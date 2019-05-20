@@ -48,6 +48,7 @@ export class PerfilPage implements OnInit {
         this.usuarioPerfil.nick = usuarioPerfil.val().nick 
         this.usuarioPerfil.descripcion = usuarioPerfil.val().descripcion
         this.usuarioPerfil.seguidores = usuarioPerfil.val().seguidores
+        this.usuarioPerfil.avatar = usuarioPerfil.val().avatar
       }else{
         this.usuarioPerfil.user= this.idUsuario
         this.usuarioPerfil.nick = "usuario1"
@@ -58,19 +59,24 @@ export class PerfilPage implements OnInit {
   }
 
   obtenerEventos() {
-    this.ref = this.fbd.database.ref('users/' + this.idUsuario + '/eventos/creados/')
-    this.ref.on('value', eventosUsuarios => {
-        eventosUsuarios.forEach(eventoUsuario => {
-            this.fbd.database.ref('eventos/' + eventoUsuario.key + '/').on('value', infoEvento => {
-                let evento = infoEvento.val()
-                if(evento){
-                    evento.key = eventoUsuario.key
-                    this.items.push(evento)
-                }
-            })
-        });
-        this.itemsFiltrado = this.items;
+    var miNick
+    this.ref = this.fbd.database.ref('users/'+this.idUsuario)
+    this.ref.on('value', usuarioPerfil => { 
+      if(usuarioPerfil.exists()) {
+        miNick = usuarioPerfil.val().nick 
+      }
     })
+    this.ref = this.fbd.database.ref('posts/')
+    this.ref.on('value', misPosts => {
+      misPosts.forEach(post => {
+            let evento = post.val()
+            if(evento.nick == miNick){
+                evento.key = post.key
+                this.items.push(evento)
+            }
+        })
+      });
+      this.itemsFiltrado = this.items;
   }
 
   userProfile() {

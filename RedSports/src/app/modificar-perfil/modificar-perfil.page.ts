@@ -47,23 +47,18 @@ export class ModificarPerfilPage implements OnInit {
 
     this.validations_form = this.formBuilder.group({
       descripcion: new FormControl('', Validators.compose([
-        Validators.nullValidator,
         Validators.minLength(0),
       ])),
       email: new FormControl('', Validators.compose([
-        Validators.nullValidator,
         Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
       ])),
       nombre: new FormControl('', Validators.compose([
-        Validators.nullValidator,
         Validators.minLength(2),
       ])),
       apellidos: new FormControl('', Validators.compose([
-        Validators.nullValidator,
         Validators.minLength(2),
       ])),
       telefono: new FormControl('', Validators.compose([
-        Validators.nullValidator,
         Validators.minLength(5),
       ])),
     });
@@ -83,8 +78,8 @@ export class ModificarPerfilPage implements OnInit {
         this.usuarioPerfil.telefono = usuarioPerfil.val().telefono
         this.usuarioPerfil.descripcion = usuarioPerfil.val().descripcion
         this.usuarioPerfil.nick = usuarioPerfil.val().nick
-
-      }else{https://console.firebase.google.com/project/redsports-2f263/database/redsports-2f263/data/?hl=es-419
+        this.usuarioPerfil.avatar = usuarioPerfil.val().avatar
+      }else{
         this.usuarioPerfil.user= this.idUsuario
         this.usuarioPerfil.nombre = "usuario1"
         this.usuarioPerfil.descripcion = "Diria que soy un tipo normal a quien le gustan los deportes"
@@ -116,6 +111,12 @@ export class ModificarPerfilPage implements OnInit {
     })
 
     this.router.navigateByUrl('/tabs/perfil')
+    .then(res => {
+      console.log(res)
+    })
+    .catch(error => {
+      console.log(error)
+    })
   }
 
   search() {
