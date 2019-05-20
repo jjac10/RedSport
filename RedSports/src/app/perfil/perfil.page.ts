@@ -38,12 +38,12 @@ export class PerfilPage implements OnInit {
     this.ref.on('value', usuarioPerfil => { 
       if(usuarioPerfil.exists()) {
         this.usuarioPerfil.user= this.idUsuario
-        this.usuarioPerfil.nombre = usuarioPerfil.val().nombre 
+        this.usuarioPerfil.nick = usuarioPerfil.val().nick 
         this.usuarioPerfil.descripcion = usuarioPerfil.val().descripcion
         this.usuarioPerfil.seguidores = usuarioPerfil.val().seguidores
       }else{
         this.usuarioPerfil.user= this.idUsuario
-        this.usuarioPerfil.nombre = "usuario1"
+        this.usuarioPerfil.nick = "usuario1"
         this.usuarioPerfil.descripcion = "Diria que soy un tipo normal a quien le gustan los deportes"
         this.usuarioPerfil.seguidores = 3
       }
