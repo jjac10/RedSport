@@ -19,7 +19,12 @@
 
   <div id="perfil">
     <img class="circle-pic" src="http://autokadabra.ru/system/uploads/users/18/18340/small.png?1318432918" />
-    <ion-button class="boton_superior" href="#">Botoncico</ion-button>
+    <div class="boton_superior" *ngIf="miPerfil">
+      <ion-button class="boton_superior" (click)="editarPerfil()">Editar</ion-button>
+    </div>
+    <div class="boton_superior" *ngIf="!miPerfil">
+      <ion-button class="boton_superior" (click)="seguir()">Seguir+</ion-button>
+    </div>  
     <ion-label class="labelSeguidores">
         Usuario: 
     </ion-label>

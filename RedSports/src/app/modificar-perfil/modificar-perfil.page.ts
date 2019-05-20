@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthenticateService } from '../services/authentication.service';
+import { AngularFireDatabase } from "@angular/fire/database";
 
 @Component({
   selector: 'app-modificar-perfil',
@@ -6,10 +9,64 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./modificar-perfil.page.scss'],
 })
 export class ModificarPerfilPage implements OnInit {
+  ref
+  usuarioPerfil: any = {}
+  public idUsuario: string
 
-  constructor() { }
+  constructor(
+    private router: Router,
+    private authService: AuthenticateService,
+    public fbd:AngularFireDatabase
+  ) { }
 
   ngOnInit() {
+    this.idUsuario= "V6Aach2YNlMX9lfRfoaBLOgJAEF2"//this.fbd.database.app.auth().currentUser.uid
+    this.ref = this.fbd.database.ref('users/'+this.idUsuario)
+    this.ref.on('value', usuarioPerfil => { 
+      if(usuarioPerfil.exists()) {
+        this.usuarioPerfil.user= this.idUsuario
+        this.usuarioPerfil.nombre = usuarioPerfil.val().nombre 
+        this.usuarioPerfil.apellidos = usuarioPerfil.val().apellidos
+        this.usuarioPerfil.email = usuarioPerfil.val().email
+        this.usuarioPerfil.telefono = usuarioPerfil.val().telefono
+        this.usuarioPerfil.descripcion = usuarioPerfil.val().descripcion
+        this.usuarioPerfil.nick = usuarioPerfil.val().nick
+
+
+      }else{
+        this.usuarioPerfil.user= this.idUsuario
+        this.usuarioPerfil.nombre = "usuario1"
+        this.usuarioPerfil.descripcion = "Diria que soy un tipo normal a quien le gustan los deportes"
+        this.usuarioPerfil.seguidores = 3
+      }
+    });
+  }
+  
+  
+  userProfile() {
+    this.router.navigateByUrl('/tabs/perfil')
   }
 
+  seguir() {
+    this.router.navigateByUrl('/tabs/perfil')
+  }
+
+  editarPerfil() {
+    this.router.navigateByUrl('/tabs/modificar-perfil')
+  }
+
+  search() {
+    this.router.navigateByUrl('/tabs/eventos')
+  }
+
+  logout() {
+    this.authService.logoutUser()
+    .then(res => {
+      console.log(res)
+      this.router.navigateByUrl('/')
+    })
+    .catch(error => {
+      console.log(error)
+    })
+  }
 }

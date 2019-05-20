@@ -1,0 +1,44 @@
+:host {
+    .user-photo ion-avatar {
+      margin: 0 auto;
+      width: 120px;
+      height: 120px;
+    }
+  
+    ion-list {
+      margin-top: 24px;
+      p {
+        font-size: 12px;
+        font-weight: 400;
+        padding-bottom: 4px;
+      };
+      h2 {
+        font-weight: 400;
+        opacity: .5;
+      }
+    }
+  }
+
+  ion-item{
+      margin-top:5%
+  }
+
+  .inputText{
+    font-family: italic bold 12px/30px Georgia, serif;
+    margin-left: 5%;
+    font-size: 12px;
+    font-weight: 400;
+    padding-bottom: 4px;
+  }
+
+  .boton {
+      width:100%;
+    margin-top: 15%;
+    height: 50px;
+  }
+
+  .textUsuario{
+    font-family: italic 12px/30px Georgia, serif;
+    margin-left: 5%;
+    font-size: 12px;
+  }

@@ -1,9 +1,54 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>modificarPerfil</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
+    <ion-toolbar color="primary">
+      <ion-buttons slot="secondary">
+        <ion-button (click)="userProfile()">
+          <ion-icon slot="icon-only" name="contact"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-buttons slot="primary">
+        <ion-button (click)="logout()">
+          <ion-icon slot="icon-only" name="exit"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title><strong>Perfil</strong></ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  
+  <ion-content>
+      <div class="user-photo" padding-top>
+          <ion-avatar>
+            <img src="http://autokadabra.ru/system/uploads/users/18/18340/small.png?1318432918">
+          </ion-avatar>
+        </div>
+      
+        <ion-list>
+          
+          <ion-item>
+              <strong class="textUsuario">Usuario:</strong>
+              <ion-input class="inputText" type="text" readonly>{{ usuarioPerfil.nick }}</ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="text" slot="start"></ion-icon>
+            <ion-textarea class="inputText" type="text" placeholder="Descripcion" value="{{usuarioPerfil.descripcion}}"></ion-textarea>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="person" slot="start"></ion-icon>
+            <ion-input class="inputText" type="text" placeholder="Nombre" value="{{ usuarioPerfil.nombre }}"></ion-input>
+          </ion-item>
+          <ion-item>
+              <ion-icon name="person" slot="start"></ion-icon>
+              <ion-input class="inputText" type="text" placeholder="Apellidos" value="{{ usuarioPerfil.apellidos }}"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="mail" slot="start"></ion-icon>
+            <ion-input class="inputText" type="text" placeholder="Email" value="{{usuarioPerfil.email}}"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="call" slot="start"></ion-icon>
+            <ion-input class="inputText" type="number" placeholder="Telefono" value="{{usuarioPerfil.telefono}}"></ion-input>
+          </ion-item>
+        </ion-list>
+        <ion-button class="boton">Guardar</ion-button>
 
 </ion-content>
