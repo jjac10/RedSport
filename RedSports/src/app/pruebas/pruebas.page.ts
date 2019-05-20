@@ -14,7 +14,7 @@ export class PruebasPage implements OnInit {
   }
 
   testing(){
-    this.fcm.enviarNotificacion('WRGuide','enlace','texto')
+    this.fcm.enviarNotificacion('prueba','/tabs/evento/-LfEvdZDzz85HJnLz1P1','Invitacion','Te han invitado a un evento')
     /*this.fcm.sendFCM(
         'ck5zqvIEmhg:APA91bEbzKbPIKOXFmMHePW0DAE5d4Hde1Kjg-S77wjLAngQhHgEy2MKg89gRfpsKaO4yQNlxdSWtVWyrtEw_I9XCUMg-RrmsaA0dg7v5fhjy75AtHB8BFSZz5jONmvIYRkAkqFKe-Ps',
         'Titulo',

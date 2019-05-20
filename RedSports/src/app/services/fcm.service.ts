@@ -42,7 +42,15 @@ export class FcmService {
     return this.firebase.onNotificationOpen();
   }
 
-  enviarNotificacion(usuario,enlace,texto){
+  //Enviamos una bd-notificacion y a su vez una push notificacion.
+  //usuario = Nick de usuario al que se le envia
+  //enlace = Contenido al que se le redirije (P.E: '/tabs/eventos/-LfFWG4XoLrDZdkD-0Sk')
+  //titulo = Aviso, Invitacion o Comentario (elegir uno)
+  //texto = Contenido del mensaje (
+      //P.E: Fulanito te ha respondido a un comentario)
+      //P.E: Fulanito te ha invitado a un evento)
+      //P.E: Fulanito se ha apuntado a tu evento)
+  enviarNotificacion(usuario,enlace,titulo,texto){
 
     this.afs.database.ref('users/').orderByChild('nick').equalTo(usuario).on('value', data => {
         data.forEach( item => {
@@ -56,8 +64,12 @@ export class FcmService {
                     "enlace": enlace,
                     "texto": texto,
                     "leido": false,
-                    "fecha": parseInt(timestamp.toFixed())
-                })
+                    "fecha": parseInt(timestamp.toFixed()),
+                    "titulo": titulo
+                }).then(data => {
+                    this.sendFCM(user.token,titulo,texto)
+
+                }).catch(err => {console.log(err)})
         });
     })
   }

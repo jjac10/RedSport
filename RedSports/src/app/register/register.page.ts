@@ -100,7 +100,10 @@ export class RegisterPage implements OnInit {
                   "apellidos": value.apellidos,
                   "nick": value.nick,
                   "email": value.email,
-                  "telefono": value.telefono
+                  "telefono": value.telefono,
+                  "descripcion": "",
+                  "seguidores": 0,
+                  "avatar": Math.floor(Math.random()*(10-1)) + 1
               }
             }
           )
