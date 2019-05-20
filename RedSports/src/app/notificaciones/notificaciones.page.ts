@@ -12,8 +12,8 @@ import { AngularFireAuth } from '@angular/fire/auth';
 })
 export class NotificacionesPage implements OnInit {
     
-    itemsPorLeer = []
-    itemsLeidos = []
+    itemsPorLeer:Array<any> = []
+    itemsLeidos:Array<any> = []
 
     constructor(
         public navCtrl: NavController,
@@ -25,9 +25,7 @@ export class NotificacionesPage implements OnInit {
 
     ngOnInit() {}
 
-    ionViewDidEnter(){
-        this.itemsPorLeer = []
-        this.itemsLeidos = []
+    ionViewWillEnter(){
         if(this.auth.auth.currentUser)
             this.getNotices();
         else
@@ -52,9 +50,20 @@ export class NotificacionesPage implements OnInit {
         })
     }
 
+    marcarVisto(cadena){
+       let estado = this.fbd.database.ref('notificaciones/'+cadena+"/leido/")
+       estado.set(true)
+    }
+
+    redirect(enlace){
+        this.router.navigateByUrl(enlace)
+    }
+
     getNotices(){
         let nodo = this.fbd.database.ref('notificaciones/').orderByChild('para').equalTo(this.auth.auth.currentUser.uid);
         nodo.on('value', listaNoticias => {
+            this.itemsPorLeer = []
+            this.itemsLeidos = []
             listaNoticias.forEach( noticia => {
                 let notice = noticia.val();
                 if(notice){
