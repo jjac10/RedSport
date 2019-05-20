@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FcmService } from '../services/fcm.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { AlertController } from '@ionic/angular';
+import { AuthenticateService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-post',
@@ -19,22 +20,10 @@ export class PostPage implements OnInit {
     private fcm: FcmService,
     private alertCtrl: AlertController,
     private auth: AngularFireAuth,
-    private fbd: AngularFireDatabase
-  ){
-    // this.fbd.database.ref('/posts/' + this.route.snapshot.paramMap.get('id'))
-    // .on('value', postData => {
-    //   this.post = postData.val()
-    //   this.post.uid = postData.key
-
-    //   let indicesResp = Object.keys(this.post.respuestas)
-
-    //   indicesResp.forEach(e => {
-    //     this.respuestas.push(this.post.respuestas[e])
-    //   });
-
-    //   console.log(this.respuestas)
-    // })
-  }
+    private fbd: AngularFireDatabase,
+    private router: Router,
+    private authService: AuthenticateService
+  ) {}
 
   ngOnInit() {}
 
@@ -112,6 +101,24 @@ export class PostPage implements OnInit {
           })
         })
       }
+    })
+  }
+
+  userProfile() {
+    this.router.navigateByUrl('/tabs/perfil')
+  }
+
+  search() {
+    this.router.navigateByUrl('/tabs/eventos')
+  }
+
+  logout() {
+    this.authService.logoutUser()
+    .then(res => {
+      this.router.navigateByUrl('/')
+    })
+    .catch(error => {
+      console.log(error)
     })
   }
 }

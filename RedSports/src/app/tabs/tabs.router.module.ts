@@ -53,15 +53,6 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'pruebas',
-        children: [
-          {
-            path: '',
-            loadChildren: '../pruebas/pruebas.module#PruebasPageModule'
-          }
-        ]
-      },
-      {
         path: 'perfil',
         children: [
           {

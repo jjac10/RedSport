@@ -48,7 +48,6 @@ export class LoginPage implements OnInit {
   login(value) {
     this.authService.loginUser(value)
     .then(res => {
-      console.log(res)
       this.fcm.getToken()
       this.errorMessage = ""
       this.router.navigateByUrl('tabs/inicio')

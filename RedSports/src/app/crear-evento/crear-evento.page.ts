@@ -33,7 +33,6 @@ export class CrearEventoPage implements OnInit {
   logout() {
     this.authService.logoutUser()
     .then(res => {
-      console.log(res)
       this.router.navigateByUrl('/')
     })
     .catch(error => {

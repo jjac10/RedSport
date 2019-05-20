@@ -33,7 +33,7 @@ export class PerfilPublicoPage implements OnInit {
   }
 
   ponerDatos(){
-    this.miUser= "V6Aach2YNlMX9lfRfoaBLOgJAEF2"//this.fbd.database.app.auth().currentUser.uid
+    this.miUser= this.fbd.database.app.auth().currentUser.uid
     this.idUsuario = this.route.snapshot.paramMap.get('id');
     if (this.idUsuario == null || this.idUsuario == this.miUser){
       this.ref = this.fbd.database.ref('users/'+this.miUser)
