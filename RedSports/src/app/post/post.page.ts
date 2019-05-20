@@ -39,14 +39,14 @@ export class PostPage implements OnInit {
   ngOnInit() {}
 
   ionViewWillEnter() {
-    this.respuestas = []
-
     this.fbd.database.ref('posts/' + this.route.snapshot.paramMap.get('id'))
     .on('value', postData => {
       this.post = postData.val()
       this.post.uid = postData.key
 
       this.fbd.database.ref('respuestas/' + this.post.uid).on('value', data => {
+        this.respuestas = []
+
         data.forEach(resp => {
           let item = resp.val()
         
@@ -101,7 +101,7 @@ export class PostPage implements OnInit {
         .then(resp => {
           this.fbd.database.ref('posts/' + this.post.uid).once('value', comment => {
             this.fbd.database.ref('posts/' + this.post.uid)
-            .update({'numComments': comment.val().numComments + 1}).then( f => {
+            .update({'numComments': comment.val().numComments + 1}).then( f => {              
               this.fcm.enviarNotificacion(
                 this.post.nick, 
                 '/tabs/post/' + this.post.uid, 
