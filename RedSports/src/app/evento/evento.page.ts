@@ -95,6 +95,8 @@ export class EventoPage implements OnInit {
   }
 
   apuntarseEnEvento() {
+    console.log('apunto')
+    console.log(this.subscritoAEvento)
     if(this.subscritoAEvento == false) {
       this.ref = this.fbd.database.ref('eventos/'+this.idEvento)
       this.ref.once('value', evento => { 
@@ -133,13 +135,8 @@ export class EventoPage implements OnInit {
     this.ref.on('value', evento => { 
       if(evento.exists()) {
         this.duenoEvento = true
-        this.buttonColor = "danger"
-        this.participar = "Desapuntarse"
       } else {
         this.duenoEvento = false
-        this.subscritoAEvento = false
-        this.buttonColor = "secondary"
-        this.participar = "Apuntarse"
       }
     })
   }

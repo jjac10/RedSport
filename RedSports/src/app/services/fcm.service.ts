@@ -52,7 +52,7 @@ export class FcmService {
       //P.E: Fulanito se ha apuntado a tu evento)
   enviarNotificacion(usuario,enlace,titulo,texto){
 
-    this.afs.database.ref('users/').orderByChild('nick').equalTo(usuario).on('value', data => {
+    this.afs.database.ref('users/').orderByChild('nick').equalTo(usuario).once('value', data => {
         data.forEach( item => {
             let user = item.val();
             user.key = item.key;
