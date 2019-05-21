@@ -55,10 +55,10 @@ export class MisEventosPage implements OnInit {
       }
 
     obtenerDatos() {
-        this.items = []
-        this.itemsFiltrado = []
         this.ref = this.fbd.database.ref('users/' + this.fa.auth.currentUser.uid + '/eventos/' + this.modo + '/')
         this.ref.on('value', eventosUsuarios => {
+            this.items = []
+            this.itemsFiltrado = []
             eventosUsuarios.forEach(eventoUsuario => {
                 this.fbd.database.ref('eventos/' + eventoUsuario.key).on('value', infoEvento => {
                     let evento = infoEvento.val()

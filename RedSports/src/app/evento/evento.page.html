@@ -19,11 +19,11 @@
 
 <ion-content>
   <ion-item>
-    <img [src]="'assets/'+imagen+'.png'" style="width:60px; height: 60px; margin: 15px; margin-left: 5px"/>
+    <img [src]="'assets/pelota.png'" style="width:60px; height: 60px; margin: 15px; margin-left: 5px"/>
     <ion-label>
       <h1> {{ evento.titulo }} </h1>
       <p> Ubicacion: {{ evento.ubicacion }} </p>
-      <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab *ngIf="duenoEvento==true" vertical="bottom" horizontal="end" slot="fixed">
         <ion-fab-button (click)="borrarEvento()">
           <ion-icon name="trash"></ion-icon>
         </ion-fab-button>
@@ -44,7 +44,7 @@
   </div>
   <div style="display: flex">
     <ion-button expand='full' color="secondary" block (click)="doPrompt()"  style="margin:10px; width: 46%;float: right;">Invitar</ion-button>
-    <ion-button expand='full' (click)="apuntarseEnEvento()" [color]=buttonColor style="margin:10px; width: 46%;">{{ participar }}</ion-button>
+    <ion-button *ngIf="duenoEvento!=true" expand='full' (click)="apuntarseEnEvento()" [color]=buttonColor style="margin:10px; width: 46%;">{{ participar }}</ion-button>
   </div>
   
 </ion-content>

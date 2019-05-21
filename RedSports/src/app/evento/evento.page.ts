@@ -25,6 +25,7 @@ export class EventoPage implements OnInit {
   public buttonColor: string = "secondary"
   public participar: string = "Participar"
   public subscritoAEvento: boolean 
+  public duenoEvento:boolean = false
   evento: any = {}
 
   //Cambiar cuando este el login
@@ -52,6 +53,15 @@ export class EventoPage implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter(){
+    this.user = this.auth.auth.currentUser.uid;
+    this.idEvento = this.route.snapshot.paramMap.get('id');
+    this.imagen  = this.route.snapshot.paramMap.get('id');
+    this.verEvento()
+    this.comprobarEventoSubscrito()
+    this.obtenerCoordenadas()
   }
 
   userProfile() {
@@ -114,6 +124,19 @@ export class EventoPage implements OnInit {
         this.buttonColor = "danger"
         this.participar = "Desapuntarse"
       } else {
+        this.subscritoAEvento = false
+        this.buttonColor = "secondary"
+        this.participar = "Apuntarse"
+      }
+    })
+    this.ref = this.fbd.database.ref('users/'+this.user+'/eventos/creados/'+this.idEvento)
+    this.ref.on('value', evento => { 
+      if(evento.exists()) {
+        this.duenoEvento = true
+        this.buttonColor = "danger"
+        this.participar = "Desapuntarse"
+      } else {
+        this.duenoEvento = false
         this.subscritoAEvento = false
         this.buttonColor = "secondary"
         this.participar = "Apuntarse"
@@ -235,8 +258,10 @@ export class EventoPage implements OnInit {
   obtenerCoordenadas() {
     this.ref = this.fbd.database.ref('eventos/'+this.idEvento+'/coordenadas')
       this.ref.on('value', coordenadas => {
-        this.lat = coordenadas.val().latitud
-        this.lng = coordenadas.val().longitud
+        if(coordenadas.val()){
+            this.lat = coordenadas.val().latitud
+            this.lng = coordenadas.val().longitud
+        }
     })  
   }
 }

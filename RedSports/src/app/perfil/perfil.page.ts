@@ -3,6 +3,7 @@ import { AuthenticateService } from '../services/authentication.service';
 import { AngularFireDatabase } from "@angular/fire/database";
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
+import { debug } from 'util';
 
 
 @Component({
@@ -45,6 +46,7 @@ export class PerfilPage implements OnInit {
         this.usuarioPerfil.descripcion = usuarioPerfil.val().descripcion
         this.usuarioPerfil.seguidores = usuarioPerfil.val().seguidores
         this.usuarioPerfil.avatar = usuarioPerfil.val().avatar
+        console.log(this.usuarioPerfil)
       }else{
         this.usuarioPerfil.user= this.idUsuario
         this.usuarioPerfil.nick = "usuario1"
